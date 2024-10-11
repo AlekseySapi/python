@@ -9,10 +9,10 @@
 # Вывод должен быть отсортирован по частоте слов (от самых частых к менее частым)
 
 import string
+from collections import Counter
 
 
 text = input("Введите текст: ")
-# print(text)
 
 
 def preprocess_text(text):
@@ -35,34 +35,10 @@ words = preprocess_text(text)
 
 
 # Подсчёт частоты слова в тексте
-def count_word_freq(words):
-    frequency = {}
-    for word in words:
-        if word in frequency:
-            frequency[word] += 1
-        else:
-            frequency[word] = 1
-    return frequency
+frequency = Counter(words)
+# Сортировка частоты
+sorted_frequency = frequency.most_common()
 
-
-def sort_frequencies(frequency):
-    # Преобразуем словарь в список кортежей (слово, частота)
-    freq_items = list(frequency.items())
-    
-    # Сортировка
-    for i in range(len(freq_items)):
-        max_index = i
-        for j in range(i + 1, len(freq_items)):
-            if freq_items[j][1] > freq_items[max_index][1]:
-                max_index = j
-        # Меняем местами
-        freq_items[i], freq_items[max_index] = freq_items[max_index], freq_items[i]
-    
-    return freq_items
-
-
-frequency = count_word_freq(words)
-sorted_frequency = sort_frequencies(frequency)
     
 # Вывод результата
 for word, count in sorted_frequency:
