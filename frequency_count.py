@@ -31,7 +31,9 @@ def preprocess_text(text):
     return words
 
 words = preprocess_text(text)
-# print(words)
+
+# Убираем слова короче 2 символов
+words = [word for word in words if len(word) > 2]
 
 
 # Подсчёт частоты слова в тексте
