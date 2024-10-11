@@ -39,7 +39,10 @@ frequency = Counter(words)
 # Сортировка частоты
 sorted_frequency = frequency.most_common()
 
-    
+# Оставим топ самых частых слов
+top_n = 10
+top_words = sorted_frequency[:top_n]
+
 # Вывод результата
-for word, count in sorted_frequency:
+for word, count in top_words:
     print(f"{word}: {count}")
