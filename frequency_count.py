@@ -11,8 +11,8 @@
 import string
 
 
-text = "Привет! Как твои дела? Привет, привет. Всё хорошо, спасибо!"
-print(text)
+text = input("Введите текст: ")
+# print(text)
 
 
 def preprocess_text(text):
