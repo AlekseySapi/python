@@ -31,5 +31,39 @@ def preprocess_text(text):
     return words
 
 words = preprocess_text(text)
-print(words)
+# print(words)
 
+
+# Подсчёт частоты слова в тексте
+def count_word_freq(words):
+    frequency = {}
+    for word in words:
+        if word in frequency:
+            frequency[word] += 1
+        else:
+            frequency[word] = 1
+    return frequency
+
+
+def sort_frequencies(frequency):
+    # Преобразуем словарь в список кортежей (слово, частота)
+    freq_items = list(frequency.items())
+    
+    # Сортировка
+    for i in range(len(freq_items)):
+        max_index = i
+        for j in range(i + 1, len(freq_items)):
+            if freq_items[j][1] > freq_items[max_index][1]:
+                max_index = j
+        # Меняем местами
+        freq_items[i], freq_items[max_index] = freq_items[max_index], freq_items[i]
+    
+    return freq_items
+
+
+frequency = count_word_freq(words)
+sorted_frequency = sort_frequencies(frequency)
+    
+# Вывод результата
+for word, count in sorted_frequency:
+    print(f"{word}: {count}")
