@@ -13,13 +13,37 @@ def divide(a, b):
     return a / b
 
 
-while 1:
-    n1 = float(input("Введите первое число: "))
-    op = ''
-    while op != '+' and op != '-' and op != '*' and op != '/':
-        print("Введите действие")
-        op = input("(+ - * или /): ")
-    n2 = float(input("Введите первое число: "))
+while True:
+    while True:
+        user_input = input("Введите первое число: ")
+        try:
+            n1 = float(user_input)  # Пробуем преобразовать в число
+            break  # Выход из цикла, если ввод корректный
+        except ValueError:
+            print("Ошибка: Нужно вводить только числа. Попробуйте снова.")
+
+    while True:
+        op = input("Введите действие (+ - * или /): ")
+        match op:
+            case '+':
+                break
+            case '-':
+                break
+            case '*':
+                break
+            case '/':
+                break
+            case _:
+                print("Ошибка: Введите одно из 4 действий. Попробуйте снова.")
+    
+    while True:
+        user_input = input("Введите второе число: ")
+        try:
+            n2 = float(user_input)  # Пробуем преобразовать в число
+            break  # Выход из цикла, если ввод корректный
+        except ValueError:
+            print("Ошибка: Нужно вводить только числа. Попробуйте снова.")
+            
 
     match op:
         case '+':
@@ -30,7 +54,7 @@ while 1:
             print(f"Произведение чисел: {n1} * {n2} = {multi(n1, n2)}\n=== === ===")
         case '/':
             if n2 == 0:
-                print("На ноль делить нельзя!\n=== === ===")
+                print("Ошибка: На ноль делить нельзя!\n=== === ===")
             else:
                 print(f"Частное чисел: {n1} / {n2} = {divide(n1, n2)}\n=== === ===")
         case _:
