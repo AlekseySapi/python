@@ -4,18 +4,6 @@ import nltk
 import string
 from collections import Counter
 
-# Загрузка списка стоп-слов
-nltk.download('stopwords')
-
-from nltk.corpus import stopwords
-
-# Получение стоп-слов для русского и английского языков
-stop_words_ru = set(stopwords.words('russian'))
-stop_words_en = set(stopwords.words('english'))
-
-# Объединение стоп-слов в один набор
-stop_words = stop_words_ru.union(stop_words_en)
-
 
 # Мой список стоп-слов
 '''
@@ -108,4 +96,16 @@ def main():
 
 
 if __name__ == "__main__":
+    # Загрузка стоп-слов
+    nltk.download('stopwords')
+    
+    from nltk.corpus import stopwords
+
+    # Получение стоп-слов для русского и английского языков
+    stop_words_ru = set(stopwords.words('russian'))
+    stop_words_en = set(stopwords.words('english'))
+
+    # Объединение стоп-слов в один набор
+    stop_words = stop_words_ru.union(stop_words_en)
+    
     main()
