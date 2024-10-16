@@ -1,11 +1,24 @@
 # Программа для подсчёта частоты слов в тексте
 
-
+import nltk
 import string
 from collections import Counter
 
-# TODO: Добавить полный словарь стоп-слов (для англ. тоже)
-# Список стоп-слов на русском языке
+# Загрузка списка стоп-слов
+nltk.download('stopwords')
+
+from nltk.corpus import stopwords
+
+# Получение стоп-слов для русского и английского языков
+stop_words_ru = set(stopwords.words('russian'))
+stop_words_en = set(stopwords.words('english'))
+
+# Объединение стоп-слов в один набор
+stop_words = stop_words_ru.union(stop_words_en)
+
+
+# Мой список стоп-слов
+'''
 stop_words = [
     'и', 'в', 'во', 'не', 'что', 'он', 'на', 'я', 'с', 'со',
     'как', 'а', 'то', 'все', 'она', 'так', 'его', 'но', 'да',
@@ -30,6 +43,7 @@ stop_words = [
     'this', 'if', 'into', 'she', 'their', 'not', 'been',
     'got', 'so', 'off', "didn't", 'could', 'get'
 ]
+'''
 
 
 def preprocess_text(text):
@@ -49,46 +63,48 @@ def preprocess_text(text):
 
 def main():
 
-    # Запрашиваем путь к текстовому файлу
-    file_path = input("Введите путь к текстовому файлу: ")
+    while True:
+        # Запрашиваем путь к текстовому файлу
+        file_path = input("Введите путь к текстовому файлу: ")
 
-    try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            text = file.read()
-    except FileNotFoundError:
-        print("Файл не найден. Проверьте путь и попробуйте снова.")
-        return
-    except Exception as e:
-        print(f"Произошла ошибка при чтении файла: {e}")
-        return
-
-
-    words = preprocess_text(text)
-
-    # Убираем слова в 1 символ
-    words = [word for word in words if len(word) > 1]
+        try:
+            with open(file_path, 'r', encoding='utf-8') as file:
+                text = file.read()
+        except FileNotFoundError:
+            print("Файл не найден. Проверьте путь и попробуйте снова.")
+            return
+        except Exception as e:
+            print(f"Произошла ошибка при чтении файла: {e}")
+            return
 
 
-    # Считаем частоту каждого слова
-    word_count = Counter(words)
+        words = preprocess_text(text)
 
-    # Фильтрация стоп-слов и слов с частотой 1
-    # И их сортировка
-    result_words = [(word, count) for word, count in word_count.most_common() if count > 1 and word not in stop_words]
+        # Убираем слова в 1 символ
+        words = [word for word in words if len(word) > 1]
 
 
+        # Считаем частоту каждого слова
+        word_count = Counter(words)
 
-    # Оставим топ самых частых слов
-    top_n = 10
-    top_words = result_words[:top_n]
+        # Фильтрация стоп-слов и слов с частотой 1
+        # И их сортировка
+        result_words = [(word, count) for word, count in word_count.most_common() if count > 1 and word not in stop_words]
 
 
-    # Вывод результата
-    print(f"== Топ {top_n} самых частых слов ==")
-    i = 0
-    for word, count in top_words:
-        i += 1
-        print(f"{i}) {word}: {count}")
+
+        # Оставим топ самых частых слов
+        top_n = 10
+        top_words = result_words[:top_n]
+
+
+        # Вывод результата
+        print(f"== Топ {top_n} самых частых слов ==")
+        i = 0
+        for word, count in top_words:
+            i += 1
+            print(f"{i}) {word}: {count}")
+        print("======= ======= ======= =======")
 
 
 if __name__ == "__main__":
