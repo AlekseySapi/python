@@ -1,6 +1,6 @@
 # Программа для подсчёта частоты слов в тексте
 
-import nltk
+import nltk # type: ignore
 import string
 from collections import Counter
 
@@ -60,7 +60,7 @@ def main():
                 text = file.read()
         except FileNotFoundError:
             print("Файл не найден. Проверьте путь и попробуйте снова.")
-            return
+            continue
         except Exception as e:
             print(f"Произошла ошибка при чтении файла: {e}")
             return
@@ -99,7 +99,7 @@ if __name__ == "__main__":
     # Загрузка стоп-слов
     nltk.download('stopwords')
     
-    from nltk.corpus import stopwords
+    from nltk.corpus import stopwords # type: ignore
 
     # Получение стоп-слов для русского и английского языков
     stop_words_ru = set(stopwords.words('russian'))
