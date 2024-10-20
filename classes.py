@@ -20,7 +20,12 @@ class Worker(Human):
         super().__init__(name, age)     # Вызываем конструктор родительского класса
         self.job = job
 
+    def hello(self):        # Переопределение метода
+        print(f"Привет, меня зовут {self.name}! Моя должность: {self.job}")
+
+
 worker1 = Worker("Виктор", 40, "Инженер")
+worker1.hello()
 
 print("=== ===")
 print(f"Имя работника: {worker1.name}")
