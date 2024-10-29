@@ -24,6 +24,12 @@ def divide(a, b):
         res = int(res)
     return res
 
+def power(a, b):
+    res = a ** b
+    if res.is_integer():
+        res = int(res)
+    return res
+
 
 while True:
     while True:
@@ -35,7 +41,7 @@ while True:
             print("Ошибка: Нужно вводить только числа. Попробуйте снова.")
 
     while True:
-        op = input("Введите действие (+ - * или /): ")
+        op = input("Введите действие (+ - * / или ^ для возведения в степень): ")
         match op:
             case '+':
                 break
@@ -44,6 +50,8 @@ while True:
             case '*':
                 break
             case '/':
+                break
+            case '^':
                 break
             case _:
                 print("Ошибка: Введите одно из 4 действий. Попробуйте снова.")
@@ -78,5 +86,7 @@ while True:
                 print("Ошибка: На ноль делить нельзя!\n=== === ===")
             else:
                 print(f"Частное чисел: {n1} / {n2} = {divide(n1, n2)}\n=== === ===")
+        case '^':
+            print(f"Возведение в степень: {n1}^{n2} = {power(n1, n2)}\n=== === ===")
         case _:
             print("Ошибка..\n=== === ===")
