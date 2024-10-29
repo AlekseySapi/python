@@ -1,16 +1,28 @@
 # Классический калькулятор
 
 def sum(a, b):
-    return a + b
+    res = a + b
+    if res.is_integer():
+        res = int(res)
+    return res
 
 def diff(a, b):
-    return a - b
+    res = a - b
+    if res.is_integer():
+        res = int(res)
+    return res
 
 def multi(a, b):
-    return a * b
+    res = a * b
+    if res.is_integer():
+        res = int(res)
+    return res
 
 def divide(a, b):
-    return a / b
+    res = a / b
+    if res.is_integer():
+        res = int(res)
+    return res
 
 
 while True:
@@ -43,6 +55,15 @@ while True:
             break  # Выход из цикла, если ввод корректный
         except ValueError:
             print("Ошибка: Нужно вводить только числа. Попробуйте снова.")
+
+
+    # Переводим введённые числа в целый формат, если это возможно
+
+    if n1.is_integer():
+        n1 = int(n1)
+
+    if n2.is_integer():
+        n2 = int(n2)
             
 
     match op:
