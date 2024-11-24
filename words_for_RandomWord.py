@@ -17,7 +17,7 @@ def get_words(input_text):
         formatted_output += line + ",\n"
 
 
-    return formatted_output.rstrip(",\n")
+    return formatted_output.rstrip(",\n"), len(unique_words)
 
 
 
@@ -38,15 +38,15 @@ def main():
             return
 
 
-
-        words = get_words(text)
+        # Получаем слова и их кол-во
+        words, n = get_words(text)
 
 
         try:
             with open(file_path, 'a', encoding='utf-8') as file:  # Открываем файл в режиме "дополнения"
                 file.write("\n=== === ===\n")
                 file.write(words + "\n")
-                print("Слова успешно добавлены в файл.")
+                print(f"{n} слов(а) успешно добавлено в файл.")
                 print("\n=== === ===")
         except Exception as e:
             print(f"Произошла ошибка при записи файла: {e}")
