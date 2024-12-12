@@ -51,11 +51,28 @@ def main():
         lower_alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
         upper_alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
 
+
+    
     while True:
-        shift = input(f"> Введите число сдвига: ").strip()
-        if shift.lstrip('-').isdigit():
-            shift = int(shift)
+        choice = input("Введите 1 - для шифрования и 2 - для расшифровки: ")
+        if choice == "1" or choice == "2":
             break
+
+    if choice == "1":
+        while True:
+            shift = input("> Введите число сдвига: ").strip()
+            if shift.lstrip('-').isdigit():
+                shift = int(shift)
+                break
+    
+    if choice == "2":
+        while True:
+            shift = input("> Введите известный сдвиг шифра: ").strip()
+            if shift.lstrip('-').isdigit():
+                shift = int(shift)
+                shift *= -1
+                break
+
 
     shift %= len(lower_alphabet)
 
