@@ -1,5 +1,4 @@
 import os
-import string
 
 
 def detect_language(text):
@@ -12,6 +11,7 @@ def detect_language(text):
         return None
 
 
+# Шифр Цезаря
 def caesar_cipher(text, shift, lower_alphabet, upper_alphabet):
     result = []
     for char in text:
@@ -28,15 +28,14 @@ def caesar_cipher(text, shift, lower_alphabet, upper_alphabet):
     return ''.join(result)
 
 
-def atbash(text, lower_alphabet, upper_alphabet):
-    # Создаём алфавит (русский)
-    alphabet = string.ascii_uppercase + string.ascii_lowercase  # Используем латинский для примера
-    reverse_alphabet = alphabet[::-1]
+# Шифр Атбаш
+def atbash(text, upper_alphabet, lower_alphabet):
+    reverse_upper_alphabet = upper_alphabet[::-1]   # Переворачиваем алфавит
+    reverse_lower_alphabet = lower_alphabet[::-1]
     
     # Маппинг букв алфавита на их противоположные
-    translation = str.maketrans(alphabet + alphabet.lower(), reverse_alphabet + reverse_alphabet.lower())
+    translation = str.maketrans(upper_alphabet + lower_alphabet, reverse_upper_alphabet + reverse_lower_alphabet)
     
-    # Возвращаем зашифрованный/расшифрованный текст
     return text.translate(translation)
 
 
@@ -57,44 +56,62 @@ def main():
         return
 
     if language == 'en':
-        lower_alphabet = string.ascii_lowercase
-        upper_alphabet = string.ascii_uppercase
+        upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        lower_alphabet = upper_alphabet.lower()
     elif language == 'ru':
-        lower_alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
         upper_alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
+        lower_alphabet = upper_alphabet.lower()
 
 
-    
+
     while True:
-        choice = input("Введите 1 - для шифрования и 2 - для расшифровки: ")
-        if choice == "1" or choice == "2":
+        choice1 = input("< Выберите шифр >\n1 - шифр Цезаря, 2 - шифр Атбаш: ")
+        if choice1 == "1" or choice1 == "2":
             break
-
-    if choice == "1":
-        while True:
-            shift = input("> Введите число сдвига: ").strip()
-            if shift.lstrip('-').isdigit():
-                shift = int(shift)
-                break
     
-    if choice == "2":
+
+    if choice1 == "1":
+
         while True:
-            shift = input("> Введите известный сдвиг шифра: ").strip()
-            if shift.lstrip('-').isdigit():
-                shift = int(shift)
-                shift *= -1
+            choice2 = input("> 1 - Зашифровать, 2 - Расшифровать: ")
+            if choice2 == "1" or choice2 == "2":
                 break
 
+        if choice2 == "1":
+            while True:
+                shift = input(">> Введите число сдвига: ").strip()
+                if shift.lstrip('-').isdigit():
+                    shift = int(shift)
+                    break
+        
+        if choice2 == "2":
+            while True:
+                shift = input(">> Какой сдвиг был у шифра: ").strip()
+                if shift.lstrip('-').isdigit():
+                    shift = int(shift)
+                    shift *= -1
+                    break
 
-    shift %= len(lower_alphabet)
 
-    encrypted_text = caesar_cipher(original_text, shift, lower_alphabet, upper_alphabet)
+        shift %= len(lower_alphabet)
 
-    with open(file_path, 'a', encoding='utf-8') as file:
-        file.write("\n=== === ===\n")
-        file.write(encrypted_text)
+        encrypted_text = caesar_cipher(original_text, shift, lower_alphabet, upper_alphabet)
 
-    print("Результат добавлен в файл.")
+        with open(file_path, 'a', encoding='utf-8') as file:
+            file.write("\n=== === ===\n\n")
+            file.write(encrypted_text)
+
+        print("Результат добавлен в файл.")
+
+    if choice1 == "2":
+
+        encrypted_text = atbash(original_text, upper_alphabet, lower_alphabet)
+
+        with open(file_path, 'a', encoding='utf-8') as file:
+            file.write("\n=== === ===\n\n")
+            file.write(encrypted_text)
+
+        print("Результат добавлен в файл.")
 
 
 if __name__ == "__main__":
