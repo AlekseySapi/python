@@ -7,6 +7,8 @@ def detect_language(text):
         return 'ru'
     elif any('a' <= char <= 'z' or 'A' <= char <= 'Z' for char in text):
         return 'en'
+    elif any('א' <= char <= 'ת' for char in text):
+        return 'hebr'
     else:
         return None
     
@@ -32,10 +34,7 @@ key_mapping_ru = {
 }
 
 # Перевод текста между раскладками
-def translate_layout(text: str, current_layout: str) -> str:
-    if current_layout not in {'ru', 'en'}:
-        raise ValueError("Некорректная раскладка.")
-    
+def translate_layout(text, current_layout):    
     if current_layout == 'en':
         return ''.join(key_mapping_en.get(char, char) for char in text)
     elif current_layout == 'ru':
@@ -43,36 +42,56 @@ def translate_layout(text: str, current_layout: str) -> str:
 
 
 # Шифр Цезаря
-def caesar_cipher(text, shift, lower_alphabet, upper_alphabet):
-    result = []
-    for char in text:
-        if char in lower_alphabet:
-            idx = lower_alphabet.index(char)
-            new_idx = idx + shift
-            result.append(lower_alphabet[new_idx % len(lower_alphabet)])
-        elif char in upper_alphabet:
-            idx = upper_alphabet.index(char)
-            new_idx = idx + shift
-            result.append(upper_alphabet[new_idx % len(upper_alphabet)])
-        else:
-            result.append(char)  # Пропуск символов, не входящих в алфавит
+def caesar_cipher(text, shift, language, alphabet):
+    if language != 'hebr':
+        lower_alphabet = alphabet.lower()
+        result = []
+        for char in text:
+            if char in lower_alphabet:
+                idx = lower_alphabet.index(char)
+                new_idx = idx + shift
+                result.append(lower_alphabet[new_idx % len(lower_alphabet)])
+            elif char in alphabet:
+                idx = alphabet.index(char)
+                new_idx = idx + shift
+                result.append(alphabet[new_idx % len(alphabet)])
+            else:
+                result.append(char)  # Пропуск символов, не входящих в алфавит
+    else:
+        result = []
+        for char in text:
+            if char in alphabet:
+                idx = alphabet.index(char)
+                new_idx = idx + shift
+                result.append(alphabet[new_idx % len(alphabet)])
+            else:
+                result.append(char)  # Пропуск символов, не входящих в алфавит
     return ''.join(result)
 
 
 # Шифр Атбаш
-def atbash(text, upper_alphabet, lower_alphabet):
-    reverse_upper_alphabet = upper_alphabet[::-1]   # Переворачиваем алфавит
-    reverse_lower_alphabet = lower_alphabet[::-1]
+def atbash(text, language, alphabet):
+    # Переворачиваем алфавит
+    if language == 'hebr':
+        reverse_alphabet = alphabet[::-1]
+
+        # Маппинг букв алфавита на их противоположные
+        translation = str.maketrans(alphabet, reverse_alphabet)
+    else:
+        lower_alphabet = alphabet.lower()
+
+        reverse_alphabet = alphabet[::-1]
+        reverse_lower_alphabet = lower_alphabet[::-1]
     
-    # Маппинг букв алфавита на их противоположные
-    translation = str.maketrans(upper_alphabet + lower_alphabet, reverse_upper_alphabet + reverse_lower_alphabet)
+        # Маппинг букв алфавита на их противоположные
+        translation = str.maketrans(alphabet + lower_alphabet, reverse_alphabet + reverse_lower_alphabet)
     
     return text.translate(translation)
 
 
 def main():
     while True:
-        file_path = input("Введите путь к файлу: ").strip()
+        file_path = input("# Введите путь к файлу:\n> ").strip()
         if not os.path.exists(file_path):
             print("Файл не найден.")
         else:
@@ -85,20 +104,31 @@ def main():
     if not language:
         print("Не удалось определить язык текста.")
         return
+    
+    print(f"Язык определён как -> [{language}]")
 
-    if language == 'en':
-        upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        lower_alphabet = upper_alphabet.lower()
-    elif language == 'ru':
-        upper_alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
-        lower_alphabet = upper_alphabet.lower()
+    if language == 'ru':
+        alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
+    elif language == 'en':
+        alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    elif language == 'hebr':
+        alphabet = 'אבגדהוזחטיכלמנסעפצקרשת'
 
 
 
-    while True:
-        choice1 = input("< Выберите шифр >\n0 - Перевод раскладки, 1 - шифр Цезаря, 2 - шифр Атбаш: ")
-        if choice1 == "0" or choice1 == "1" or choice1 == "2":
-            break
+    if language in {'ru', 'en'}:
+
+        while True:
+            choice1 = input("# Выберите шифр\n 0 - Перевод раскладки, 1 - шифр Цезаря, 2 - шифр Атбаш: ")
+            if choice1 == "0" or choice1 == "1" or choice1 == "2":
+                break
+
+    else:
+
+        while True:
+            choice1 = input("# Выберите шифр\n 1 - шифр Цезаря, 2 - шифр Атбаш: ")
+            if choice1 == "1" or choice1 == "2":
+                break
     
 
     if choice1 == "0":
@@ -121,23 +151,23 @@ def main():
 
         if choice2 == "1":
             while True:
-                shift = input(">> Введите число сдвига: ").strip()
+                shift = input(">> Насколько нужно сдвинуть? ").strip()
                 if shift.lstrip('-').isdigit():
                     shift = int(shift)
                     break
         
         if choice2 == "2":
             while True:
-                shift = input(">> Какой сдвиг был у шифра: ").strip()
+                shift = input(">> Какой сдвиг был у шифра? ").strip()
                 if shift.lstrip('-').isdigit():
                     shift = int(shift)
                     shift *= -1
                     break
 
 
-        shift %= len(lower_alphabet)
+        shift %= len(alphabet)
 
-        encrypted_text = caesar_cipher(original_text, shift, lower_alphabet, upper_alphabet)
+        encrypted_text = caesar_cipher(original_text, shift, language, alphabet)
 
         with open(file_path, 'a', encoding='utf-8') as file:
             file.write("\n\n=== === ===\n")
@@ -148,7 +178,7 @@ def main():
 
     if choice1 == "2":
 
-        encrypted_text = atbash(original_text, upper_alphabet, lower_alphabet)
+        encrypted_text = atbash(original_text, language, alphabet)
 
         with open(file_path, 'a', encoding='utf-8') as file:
             file.write("\n\n=== === ===\n")
