@@ -7,6 +7,8 @@ def detect_language(text):
         return 'ru'
     elif any('a' <= char <= 'z' or 'A' <= char <= 'Z' for char in text):
         return 'en'
+    elif any('α' <= char <= 'ω' or 'Α' <= char <= 'Ω' for char in text):
+        return 'greek'
     elif any('א' <= char <= 'ת' for char in text):
         return 'hebr'
     else:
@@ -71,8 +73,8 @@ def caesar_cipher(text, shift, language, alphabet):
 
 # Шифр Атбаш
 def atbash(text, language, alphabet):
-    # Переворачиваем алфавит
     if language == 'hebr':
+        # Переворачиваем алфавит
         reverse_alphabet = alphabet[::-1]
 
         # Маппинг букв алфавита на их противоположные
@@ -80,6 +82,7 @@ def atbash(text, language, alphabet):
     else:
         lower_alphabet = alphabet.lower()
 
+        # Переворачиваем алфавит
         reverse_alphabet = alphabet[::-1]
         reverse_lower_alphabet = lower_alphabet[::-1]
     
@@ -111,8 +114,11 @@ def main():
         alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
     elif language == 'en':
         alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    elif language == 'greek':
+        alphabet = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
     elif language == 'hebr':
         alphabet = 'אבגדהוזחטיכלמנסעפצקרשת'
+        
 
 
 
