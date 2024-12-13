@@ -28,6 +28,18 @@ def caesar_cipher(text, shift, lower_alphabet, upper_alphabet):
     return ''.join(result)
 
 
+def atbash(text, lower_alphabet, upper_alphabet):
+    # Создаём алфавит (русский)
+    alphabet = string.ascii_uppercase + string.ascii_lowercase  # Используем латинский для примера
+    reverse_alphabet = alphabet[::-1]
+    
+    # Маппинг букв алфавита на их противоположные
+    translation = str.maketrans(alphabet + alphabet.lower(), reverse_alphabet + reverse_alphabet.lower())
+    
+    # Возвращаем зашифрованный/расшифрованный текст
+    return text.translate(translation)
+
+
 def main():
     while True:
         file_path = input("Введите путь к файлу: ").strip()
