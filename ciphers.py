@@ -98,7 +98,7 @@ def main():
         encrypted_text = caesar_cipher(original_text, shift, lower_alphabet, upper_alphabet)
 
         with open(file_path, 'a', encoding='utf-8') as file:
-            file.write("\n=== === ===\n\n")
+            file.write("\n\n=== === ===\n")
             file.write(encrypted_text)
 
         print("Результат добавлен в файл.")
@@ -108,7 +108,7 @@ def main():
         encrypted_text = atbash(original_text, upper_alphabet, lower_alphabet)
 
         with open(file_path, 'a', encoding='utf-8') as file:
-            file.write("\n=== === ===\n\n")
+            file.write("\n\n=== === ===\n")
             file.write(encrypted_text)
 
         print("Результат добавлен в файл.")

@@ -44,7 +44,7 @@ def main():
 
         try:
             with open(file_path, 'a', encoding='utf-8') as file:  # Открываем файл в режиме "дополнения"
-                file.write("\n=== === ===\n")
+                file.write("\n\n=== === ===\n")
                 file.write(words + "\n")
                 print(f"{n} слов(а) успешно добавлено в файл.")
                 print("\n=== === ===")
