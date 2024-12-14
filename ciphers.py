@@ -11,6 +11,10 @@ def detect_language(text):
         return 'greek'
     elif any('א' <= char <= 'ת' for char in text):
         return 'hebr'
+    elif any('𐤀' <= char <= '𐤕' for char in text):
+        return 'phnx'
+    elif any('أ' <= char <= 'غ' for char in text):
+        return 'arab'
     else:
         return None
     
@@ -45,7 +49,7 @@ def translate_layout(text, current_layout):
 
 # Шифр Цезаря
 def caesar_cipher(text, shift, language, alphabet):
-    if language != 'hebr':
+    if language != 'hebr' or language != 'phnx' or language != 'arab':
         lower_alphabet = alphabet.lower()
         result = []
         for char in text:
@@ -73,7 +77,7 @@ def caesar_cipher(text, shift, language, alphabet):
 
 # Шифр Атбаш
 def atbash(text, language, alphabet):
-    if language == 'hebr':
+    if language == 'hebr' or language == 'phnx' or language == 'arab':
         # Переворачиваем алфавит
         reverse_alphabet = alphabet[::-1]
 
@@ -118,6 +122,10 @@ def main():
         alphabet = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
     elif language == 'hebr':
         alphabet = 'אבגדהוזחטיכלמנסעפצקרשת'
+    elif language == 'phnx':
+        alphabet = '𐤀𐤁𐤂𐤃𐤄𐤅𐤆𐤇𐤈𐤉𐤊𐤋𐤌𐤍𐤎𐤏𐤐𐤑𐤒𐤓𐤔𐤕'
+    elif language == 'arab':
+        alphabet = 'أبجدﻩوزحطيكلمنسعفصقرشتثخذضظغ'
         
 
 
@@ -126,15 +134,19 @@ def main():
         if language in {'ru', 'en'}:
 
             while True:
-                choice1 = input("# Выберите шифр\n 0 - Перевод раскладки, 1 - шифр Цезаря, 2 - шифр Атбаш: ")
-                if choice1 == "0" or choice1 == "1" or choice1 == "2":
+                choice1 = input("# Выберите шифр\n 0 - Перевод раскладки, 1 - шифр Цезаря, 2 - шифр Атбаш (Q/q - выход): ")
+                if choice1 == "q" or choice1 == "Q":
+                    exit()
+                elif choice1 == "0" or choice1 == "1" or choice1 == "2":
                     break
 
         else:
 
             while True:
-                choice1 = input("# Выберите шифр\n 1 - шифр Цезаря, 2 - шифр Атбаш: ")
-                if choice1 == "1" or choice1 == "2":
+                choice1 = input("# Выберите шифр\n 1 - шифр Цезаря, 2 - шифр Атбаш (Q/q - выход): ")
+                if choice1 == "q" or choice1 == "Q":
+                    exit()
+                elif choice1 == "1" or choice1 == "2":
                     break
         
 
