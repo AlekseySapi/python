@@ -73,11 +73,13 @@ def atbash(text, upper_alphabet, lower_alphabet):
 
 def main():
 
-    print("##### ##### ##### #####")
+    print("##### ##### ##### ##### #####")
     while True:
         while True:
-            word = input("# Зашифрованное слово [len: 3 - 20]:\n> ")
-            if len(word) > 2 and len(word) < 21:
+            word = input("# Зашифрованное слово / фраза [len: 3 - 30]:\n> ")
+            if word == "q" or word == "Q":
+                exit()
+            elif len(word) > 2 and len(word) < 31:
                 break
         
 
@@ -95,20 +97,20 @@ def main():
 
 
 
-        print("\n=== === === === ===\n# Перевод раскладки")
+        print("\n=== === === === ===\n## Смена раскладки")
         translated_word = translate_layout(word, language)
         print("> " + translated_word + "\n")
 
-        print("# Шифр Атбаш")
+        print("## Шифр Атбаш")
         atbashed_word = atbash(word, upper_alphabet, lower_alphabet)
         print("> " + atbashed_word + "\n")
 
-        print("# Шифр Цезаря")
+        print("## Шифр Цезаря")
         for i in range(len(upper_alphabet)-1):
             caesared_word = caesar_cipher(word, i+1, lower_alphabet, upper_alphabet)
             print(f"  {caesared_word} < {i+1}")
 
-        print("\n##### ##### ##### #####")
+        print("\n##### ##### ##### ##### #####")
 
 
 if __name__ == "__main__":
