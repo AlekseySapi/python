@@ -72,38 +72,43 @@ def atbash(text, upper_alphabet, lower_alphabet):
 
 
 def main():
+
+    print("##### ##### ##### #####")
     while True:
-        word = input("# Зашифрованное слово [len: 3 - 20]:\n> ")
-        if len(word) > 2 and len(word) < 21:
-            break
-    
+        while True:
+            word = input("# Зашифрованное слово [len: 3 - 20]:\n> ")
+            if len(word) > 2 and len(word) < 21:
+                break
+        
 
-    language = detect_language(word)
-    if not language:
-        print("Не удалось определить язык текста.")
-        return
+        language = detect_language(word)
+        if not language:
+            print("Не удалось определить язык текста.")
+            return
 
-    if language == 'en':
-        upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        lower_alphabet = upper_alphabet.lower()
-    elif language == 'ru':
-        upper_alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
-        lower_alphabet = upper_alphabet.lower()
+        if language == 'en':
+            upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            lower_alphabet = upper_alphabet.lower()
+        elif language == 'ru':
+            upper_alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
+            lower_alphabet = upper_alphabet.lower()
 
 
 
-    print("\n# Перевод раскладки")
-    translated_word = translate_layout(word, language)
-    print("> " + translated_word + "\n")
+        print("\n=== === === === ===\n# Перевод раскладки")
+        translated_word = translate_layout(word, language)
+        print("> " + translated_word + "\n")
 
-    print("# Шифр Атбаш")
-    atbashed_word = atbash(word, upper_alphabet, lower_alphabet)
-    print("> " + atbashed_word + "\n")
+        print("# Шифр Атбаш")
+        atbashed_word = atbash(word, upper_alphabet, lower_alphabet)
+        print("> " + atbashed_word + "\n")
 
-    print("# Шифр Цезаря")
-    for i in range(len(upper_alphabet)-1):
-        caesared_word = caesar_cipher(word, i+1, lower_alphabet, upper_alphabet)
-        print(f"  {caesared_word} < {i+1}")
+        print("# Шифр Цезаря")
+        for i in range(len(upper_alphabet)-1):
+            caesared_word = caesar_cipher(word, i+1, lower_alphabet, upper_alphabet)
+            print(f"  {caesared_word} < {i+1}")
+
+        print("\n##### ##### ##### #####")
 
 
 if __name__ == "__main__":
