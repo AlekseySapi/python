@@ -71,6 +71,12 @@ def atbash(text, upper_alphabet, lower_alphabet):
     return text.translate(translation)
 
 
+# Переворот слова
+def reverse_word(word):
+    res = word[::-1]
+    return res
+
+
 def main():
 
     print("##### ##### ##### ##### #####")
@@ -100,6 +106,10 @@ def main():
         print("\n=== === === === ===\n## Смена раскладки")
         translated_word = translate_layout(word, language)
         print("> " + translated_word + "\n")
+
+        print("## Переворот слова")
+        reversed_word = reverse_word(word)
+        print("> " + reversed_word + "\n")
 
         print("## Шифр Атбаш")
         atbashed_word = atbash(word, upper_alphabet, lower_alphabet)
