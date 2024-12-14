@@ -121,76 +121,77 @@ def main():
         
 
 
+    while True:
 
-    if language in {'ru', 'en'}:
+        if language in {'ru', 'en'}:
 
-        while True:
-            choice1 = input("# Выберите шифр\n 0 - Перевод раскладки, 1 - шифр Цезаря, 2 - шифр Атбаш: ")
-            if choice1 == "0" or choice1 == "1" or choice1 == "2":
-                break
-
-    else:
-
-        while True:
-            choice1 = input("# Выберите шифр\n 1 - шифр Цезаря, 2 - шифр Атбаш: ")
-            if choice1 == "1" or choice1 == "2":
-                break
-    
-
-    if choice1 == "0":
-
-        translated_text = translate_layout(original_text, language)
-
-        with open(file_path, 'a', encoding='utf-8') as file:
-            file.write("\n\n=== === ===\n")
-            file.write(translated_text)
-
-        print("Результат добавлен в файл.")
-
-
-    if choice1 == "1":
-
-        while True:
-            choice2 = input("> 1 - Зашифровать, 2 - Расшифровать: ")
-            if choice2 == "1" or choice2 == "2":
-                break
-
-        if choice2 == "1":
             while True:
-                shift = input(">> Насколько нужно сдвинуть? ").strip()
-                if shift.lstrip('-').isdigit():
-                    shift = int(shift)
+                choice1 = input("# Выберите шифр\n 0 - Перевод раскладки, 1 - шифр Цезаря, 2 - шифр Атбаш: ")
+                if choice1 == "0" or choice1 == "1" or choice1 == "2":
+                    break
+
+        else:
+
+            while True:
+                choice1 = input("# Выберите шифр\n 1 - шифр Цезаря, 2 - шифр Атбаш: ")
+                if choice1 == "1" or choice1 == "2":
                     break
         
-        if choice2 == "2":
+
+        if choice1 == "0":
+
+            translated_text = translate_layout(original_text, language)
+
+            with open(file_path, 'a', encoding='utf-8') as file:
+                file.write("\n\n=== === ===\n")
+                file.write(translated_text)
+
+            print("Результат добавлен в файл.\n")
+
+
+        if choice1 == "1":
+
             while True:
-                shift = input(">> Какой сдвиг был у шифра? ").strip()
-                if shift.lstrip('-').isdigit():
-                    shift = int(shift)
-                    shift *= -1
+                choice2 = input("> 1 - Зашифровать, 2 - Расшифровать: ")
+                if choice2 == "1" or choice2 == "2":
                     break
 
+            if choice2 == "1":
+                while True:
+                    shift = input(">> Насколько нужно сдвинуть? ").strip()
+                    if shift.lstrip('-').isdigit():
+                        shift = int(shift)
+                        break
+            
+            if choice2 == "2":
+                while True:
+                    shift = input(">> Какой сдвиг был у шифра? ").strip()
+                    if shift.lstrip('-').isdigit():
+                        shift = int(shift)
+                        shift *= -1
+                        break
 
-        shift %= len(alphabet)
 
-        encrypted_text = caesar_cipher(original_text, shift, language, alphabet)
+            shift %= len(alphabet)
 
-        with open(file_path, 'a', encoding='utf-8') as file:
-            file.write("\n\n=== === ===\n")
-            file.write(encrypted_text)
+            encrypted_text = caesar_cipher(original_text, shift, language, alphabet)
 
-        print("Результат добавлен в файл.")
+            with open(file_path, 'a', encoding='utf-8') as file:
+                file.write("\n\n=== === ===\n")
+                file.write(encrypted_text)
+
+            print("Результат добавлен в файл.\n")
 
 
-    if choice1 == "2":
+        if choice1 == "2":
 
-        encrypted_text = atbash(original_text, language, alphabet)
+            encrypted_text = atbash(original_text, language, alphabet)
 
-        with open(file_path, 'a', encoding='utf-8') as file:
-            file.write("\n\n=== === ===\n")
-            file.write(encrypted_text)
+            with open(file_path, 'a', encoding='utf-8') as file:
+                file.write("\n\n=== === ===\n")
+                file.write(encrypted_text)
 
-        print("Результат добавлен в файл.")
+            print("Результат добавлен в файл.\n")
 
 
 if __name__ == "__main__":
