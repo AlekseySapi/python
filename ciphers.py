@@ -15,6 +15,8 @@ def detect_language(text):
         return 'phnx'
     elif any('أ' <= char <= 'غ' for char in text):
         return 'arab'
+    elif any('ᚠ' <= char <= 'ᛞ' for char in text):
+        return 'rune'
     else:
         return None
     
@@ -49,7 +51,7 @@ def translate_layout(text, current_layout):
 
 # Шифр Цезаря
 def caesar_cipher(text, shift, language, alphabet):
-    if language != 'hebr' or language != 'phnx' or language != 'arab':
+    if language != 'hebr' or language != 'phnx' or language != 'arab' or language != 'rune':
         lower_alphabet = alphabet.lower()
         result = []
         for char in text:
@@ -77,7 +79,7 @@ def caesar_cipher(text, shift, language, alphabet):
 
 # Шифр Атбаш
 def atbash(text, language, alphabet):
-    if language == 'hebr' or language == 'phnx' or language == 'arab':
+    if language == 'hebr' or language == 'phnx' or language == 'arab' or language == 'rune':
         # Переворачиваем алфавит
         reverse_alphabet = alphabet[::-1]
 
@@ -126,6 +128,8 @@ def main():
         alphabet = '𐤀𐤁𐤂𐤃𐤄𐤅𐤆𐤇𐤈𐤉𐤊𐤋𐤌𐤍𐤎𐤏𐤐𐤑𐤒𐤓𐤔𐤕'
     elif language == 'arab':
         alphabet = 'أبجدﻩوزحطيكلمنسعفصقرشتثخذضظغ'
+    elif language == 'rune':
+        alphabet = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛈᛇᛉᛊᛏᛒᛖᛗᛚᛜᛟᛞ'
         
 
 
