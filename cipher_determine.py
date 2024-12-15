@@ -1,6 +1,10 @@
 import os
 
 
+line = "\n##### ##### ##### ##### #####"
+line2 = "\n=== === === === ==="
+
+
 def detect_language(text):
     # Определение языка текста
     if any('а' <= char <= 'я' or 'А' <= char <= 'Я' for char in text):
@@ -11,39 +15,25 @@ def detect_language(text):
         return None
     
 
-# Словарь соответствий раскладок
-key_mapping_en = {
-    'q': 'й', 'w': 'ц', 'e': 'у', 'r': 'к', 't': 'е', 'y': 'н', 'u': 'г', 'i': 'ш', 'o': 'щ', 'p': 'з', '[': 'х', ']': 'ъ',
-    'a': 'ф', 's': 'ы', 'd': 'в', 'f': 'а', 'g': 'п', 'h': 'р', 'j': 'о', 'k': 'л', 'l': 'д', ';': 'ж', '\'': 'э',
-    'z': 'я', 'x': 'ч', 'c': 'с', 'v': 'м', 'b': 'и', 'n': 'т', 'm': 'ь', ',': 'б', '.': 'ю', '/': '.', '`': 'ё',
-    'Q': 'Й', 'W': 'Ц', 'E': 'У', 'R': 'К', 'T': 'Е', 'Y': 'Н', 'U': 'Г', 'I': 'Ш', 'O': 'Щ', 'P': 'З', '{': 'Х', '}': 'Ъ',
-    'A': 'Ф', 'S': 'Ы', 'D': 'В', 'F': 'А', 'G': 'П', 'H': 'Р', 'J': 'О', 'K': 'Л', 'L': 'Д', ':': 'Ж', '"': 'Э',
-    'Z': 'Я', 'X': 'Ч', 'C': 'С', 'V': 'М', 'B': 'И', 'N': 'Т', 'M': 'Ь', '<': 'Б', '>': 'Ю', '?': ',', '~': 'Ё',
-    '#': '№', '$': ';', '^': ':', '&': '?', '@': '"', '|': '/'
-}
-key_mapping_ru = {
-    'й': 'q', 'ц': 'w', 'у': 'e', 'к': 'r', 'е': 't', 'н': 'y', 'г': 'u', 'ш': 'i', 'щ': 'o', 'з': 'p', 'х': '[', 'ъ': ']',
-    'ф': 'a', 'ы': 's', 'в': 'd', 'а': 'f', 'п': 'g', 'р': 'h', 'о': 'j', 'л': 'k', 'д': 'l', 'ж': ';', 'э': '\'',
-    'я': 'z', 'ч': 'x', 'с': 'c', 'м': 'v', 'и': 'b', 'т': 'n', 'ь': 'm', 'б': ',', 'ю': '.', '.': '/', 'ё': '`',
-    'Й': 'Q', 'Ц': 'W', 'У': 'E', 'К': 'R', 'Е': 'T', 'Н': 'Y', 'Г': 'U', 'Ш': 'I', 'Щ': 'O', 'З': 'P', 'Х': '{', 'Ъ': '}',
-    'Ф': 'A', 'Ы': 'S', 'В': 'D', 'А': 'F', 'П': 'G', 'Р': 'H', 'О': 'J', 'Л': 'K', 'Д': 'L', 'Ж': ':', 'Э': '"',
-    'Я': 'Z', 'Ч': 'X', 'С': 'C', 'М': 'V', 'И': 'B', 'Т': 'N', 'Ь': 'M', 'Б': '<', 'Ю': '>', ',': '?', 'Ё': '~',
-    '№': '#', ';': '$', ':': '^', '?': '&', '"': '@', '/': '|'
-}
+# Маппинг (английская и русская раскладки)
+en = '`qwertyuiop[]asdfghjkl;\'zxcvbnm,./~@#$%^&QWERTYUIOP{}|ASDFGHJKL:"ZXCVBNM<>?'
+ru = 'ёйцукенгшщзхъфывапролджэячсмитьбю.Ё"№;%:?ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,'
+
+# Создание маппинга с помощью str.maketrans
+en_to_ru = str.maketrans(en, ru)
+ru_to_en = str.maketrans(ru, en)
 
 # Перевод текста между раскладками
-def translate_layout(text: str, current_layout: str) -> str:
-    if current_layout not in {'ru', 'en'}:
-        raise ValueError("Некорректная раскладка.")
-    
+def translate_layout(text, current_layout):
     if current_layout == 'en':
-        return ''.join(key_mapping_en.get(char, char) for char in text)
+        return text.translate(en_to_ru)
     elif current_layout == 'ru':
-        return ''.join(key_mapping_ru.get(char, char) for char in text)
+        return text.translate(ru_to_en)
 
 
 # Шифр Цезаря
-def caesar_cipher(text, shift, lower_alphabet, upper_alphabet):
+def caesar_cipher(text, shift, alphabet):
+    lower_alphabet = alphabet.lower()
     result = []
     shift *= -1
     for char in text:
@@ -51,22 +41,25 @@ def caesar_cipher(text, shift, lower_alphabet, upper_alphabet):
             idx = lower_alphabet.index(char)
             new_idx = idx + shift
             result.append(lower_alphabet[new_idx % len(lower_alphabet)])
-        elif char in upper_alphabet:
-            idx = upper_alphabet.index(char)
+        elif char in alphabet:
+            idx = alphabet.index(char)
             new_idx = idx + shift
-            result.append(upper_alphabet[new_idx % len(upper_alphabet)])
+            result.append(alphabet[new_idx % len(alphabet)])
         else:
             result.append(char)  # Пропуск символов, не входящих в алфавит
     return ''.join(result)
 
 
 # Шифр Атбаш
-def atbash(text, upper_alphabet, lower_alphabet):
-    reverse_upper_alphabet = upper_alphabet[::-1]   # Переворачиваем алфавит
+def atbash(text, alphabet):
+    lower_alphabet = alphabet.lower()
+
+    # Переворачиваем алфавит
+    reverse_alphabet = alphabet[::-1]
     reverse_lower_alphabet = lower_alphabet[::-1]
     
     # Маппинг букв алфавита на их противоположные
-    translation = str.maketrans(upper_alphabet + lower_alphabet, reverse_upper_alphabet + reverse_lower_alphabet)
+    translation = str.maketrans(alphabet + lower_alphabet, reverse_alphabet + reverse_lower_alphabet)
     
     return text.translate(translation)
 
@@ -79,7 +72,7 @@ def reverse_word(word):
 
 def main():
 
-    print("##### ##### ##### ##### #####")
+    print(line)
     while True:
         while True:
             word = input("# Зашифрованное слово / фраза [len: 3 - 30]:\n> ")
@@ -95,32 +88,31 @@ def main():
             return
 
         if language == 'en':
-            upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-            lower_alphabet = upper_alphabet.lower()
+            alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         elif language == 'ru':
-            upper_alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
-            lower_alphabet = upper_alphabet.lower()
+            alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
 
 
 
-        print("\n=== === === === ===\n## Смена раскладки")
+        print(line2)
+        print("## Смена раскладки")
         translated_word = translate_layout(word, language)
-        print("> " + translated_word + "\n")
+        print("  " + translated_word + "\n")
 
         print("## Переворот слова")
         reversed_word = reverse_word(word)
-        print("> " + reversed_word + "\n")
+        print("  " + reversed_word + "\n")
 
         print("## Шифр Атбаш")
-        atbashed_word = atbash(word, upper_alphabet, lower_alphabet)
-        print("> " + atbashed_word + "\n")
+        atbashed_word = atbash(word, alphabet)
+        print("  " + atbashed_word + "\n")
 
         print("## Шифр Цезаря")
-        for i in range(len(upper_alphabet)-1):
-            caesared_word = caesar_cipher(word, i+1, lower_alphabet, upper_alphabet)
+        for i in range(len(alphabet)-1):
+            caesared_word = caesar_cipher(word, i+1, alphabet)
             print(f"  {caesared_word} < {i+1}")
 
-        print("\n##### ##### ##### ##### #####")
+        print(line)
 
 
 if __name__ == "__main__":
