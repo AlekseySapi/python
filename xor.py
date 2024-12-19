@@ -17,10 +17,18 @@
 # 14 - 1110
 # 15 - 1111
 
-a = 1
-b = 2
 
-res = a ^ b  #  001 XOR 010 = 011 (3)
+a = 3   # 011
+b = 5   # 101
+        # =
+        # 110
+
+res = a ^ b
 
 
 print(f"{a} XOR {b} = {res}")
+
+
+original = res ^ b
+
+print(f"\nИсходное число после операции XOR с числом b ({b}):\n {res} XOR {b} = {original}")
