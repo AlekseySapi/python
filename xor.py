@@ -25,12 +25,14 @@ b = 5   # 101
         # 110
 '''
 
-a = int(input("a = "))
-b = int(input("b = "))
+while True:
+    print("=== === ===")
+    a = int(input("a = "))
+    b = int(input("b = "))
 
-res = a ^ b
+    res = a ^ b
 
-print(f"{a} XOR {b} = {res}")
+    print(f"{a} XOR {b} = {res}\n")
 
 # original = res ^ b
 # print(f"\nИсходное число после операции XOR с числом b ({b}):\n {res} XOR {b} = {original}")
