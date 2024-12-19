@@ -18,18 +18,19 @@
 # 14 - 1110
 # 15 - 1111
 
-
+'''
 a = 3   # 011
 b = 5   # 101
         # =
         # 110
+'''
+
+a = int(input("a = "))
+b = int(input("b = "))
 
 res = a ^ b
 
-
 print(f"{a} XOR {b} = {res}")
 
-
-original = res ^ b
-
-print(f"\nИсходное число после операции XOR с числом b ({b}):\n {res} XOR {b} = {original}")
+# original = res ^ b
+# print(f"\nИсходное число после операции XOR с числом b ({b}):\n {res} XOR {b} = {original}")
