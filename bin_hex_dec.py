@@ -16,7 +16,7 @@ def is_bin(num):
 def main():
      
     while True:
-        print("=== === === === ===")
+        print("===== ===== =====")
         while True:
             choice = input("В какую систему счисления перевести число?\nВведите 2 (b), 16 (h) или 10 (d):\n> ")
             if choice == "2" or choice == "b" or choice == "16" or choice == "h" or choice == "10" or choice == "d":
