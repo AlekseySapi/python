@@ -27,12 +27,27 @@ b = 5   # 101
 
 while True:
     print("=== === ===")
+    '''
     a = int(input("a = "))
     b = int(input("b = "))
 
     res = a ^ b
 
     print(f"{a} XOR {b} = {res}\n")
+    '''
+
+    char = 'A'
+    key = 'K'
+
+    # Перевод символов в числовое представление
+    char_code = ord(char)
+    key_code = ord(key)
+
+    print(f"Код символа {char} - {char_code}")
+    print(f"Код символа {key} - {key_code}")
+
+    input()
+
 
 # original = res ^ b
 # print(f"\nИсходное число после операции XOR с числом b ({b}):\n {res} XOR {b} = {original}")
