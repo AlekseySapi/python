@@ -36,28 +36,37 @@ while True:
     print(f"{a} XOR {b} = {res}\n")
     '''
 
-    char_A = 'A'
-    char_Z = 'Z'
-    char_a = 'a'
-    char_z = 'z'
+    char = 'W'
     key_K = 'K'
     key_k = 'k'
+    key_1 = '1'
+    key_5 = '5'
+    key_7 = '7'
 
     # Перевод символов в числовое представление
-    char_A_code = ord(char_A)
-    char_Z_code = ord(char_Z)
-    char_a_code = ord(char_a)
-    char_z_code = ord(char_z)
+    char_code = ord(char)
     key_K_code = ord(key_K)
     key_k_code = ord(key_k)
+    key_1_code = ord(key_1)
+    key_5_code = ord(key_5)
+    key_7_code = ord(key_7)
 
-    print(f"Код символа {char_A} - {char_A_code}")
-    print(f"Код символа {char_Z} - {char_Z_code}")
-    print(f"Код символа {char_a} - {char_a_code}")
-    print(f"Код символа {char_z} - {char_z_code}")
+    # Шифровка разными ключами
+    encrypted_by_K = char_code ^ key_K_code
+    encrypted_by_k = char_code ^ key_k_code
+    encrypted_by_1 = char_code ^ key_1_code
+    encrypted_by_5 = char_code ^ key_5_code
+    encrypted_by_7 = char_code ^ key_7_code
+
+
+    print(f"Шифровка символа '{char}':")
     print()
-    print(f"Код символа {key_K} - {key_K_code}")
-    print(f"Код символа {key_k} - {key_k_code}")
+    print(f"Ключом {key_K} -> {chr(encrypted_by_K)}\t | {char_code} ^ {key_K_code} -> {encrypted_by_K}")
+    print(f"Ключом {key_k} -> {chr(encrypted_by_k)}\t | {char_code} ^ {key_k_code} -> {encrypted_by_k}")
+    print()
+    print(f"Ключом {key_1} -> {chr(encrypted_by_1)}\t | {char_code} ^ {key_1_code} -> {encrypted_by_1}")
+    print(f"Ключом {key_5} -> {chr(encrypted_by_5)}\t | {char_code} ^ {key_5_code} -> {encrypted_by_5}")
+    print(f"Ключом {key_7} -> {chr(encrypted_by_7)}\t | {char_code} ^ {key_7_code} -> {encrypted_by_7}")
 
     input()
 
