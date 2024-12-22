@@ -36,15 +36,28 @@ while True:
     print(f"{a} XOR {b} = {res}\n")
     '''
 
-    char = 'A'
-    key = 'K'
+    char_A = 'A'
+    char_Z = 'Z'
+    char_a = 'a'
+    char_z = 'z'
+    key_K = 'K'
+    key_k = 'k'
 
     # Перевод символов в числовое представление
-    char_code = ord(char)
-    key_code = ord(key)
+    char_A_code = ord(char_A)
+    char_Z_code = ord(char_Z)
+    char_a_code = ord(char_a)
+    char_z_code = ord(char_z)
+    key_K_code = ord(key_K)
+    key_k_code = ord(key_k)
 
-    print(f"Код символа {char} - {char_code}")
-    print(f"Код символа {key} - {key_code}")
+    print(f"Код символа {char_A} - {char_A_code}")
+    print(f"Код символа {char_Z} - {char_Z_code}")
+    print(f"Код символа {char_a} - {char_a_code}")
+    print(f"Код символа {char_z} - {char_z_code}")
+    print()
+    print(f"Код символа {key_K} - {key_K_code}")
+    print(f"Код символа {key_k} - {key_k_code}")
 
     input()
 
