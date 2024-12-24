@@ -48,51 +48,50 @@ def detect_language(text):
 
 def main():
     print(line)
+
     while True:
-        file_path = input("# Введите путь к файлу:\n> ").strip()
-        if not os.path.exists(file_path):
-            print("Файл не найден.")
-        else:
-            break
+        while True:
+            file_path = input("# Введите путь к файлу:\n> ").strip()
+            if not os.path.exists(file_path):
+                print("Файл не найден.")
+            else:
+                break
 
-    with open(file_path, 'r', encoding='utf-8') as file:
-        original_text = file.read()
+        with open(file_path, 'r', encoding='utf-8') as file:
+            original_text = file.read()
 
-    language = detect_language(original_text)
-    if not language:
-        print("Не удалось определить язык текста.")
-        return
-    
-    print(f"Язык определён как -> [{language}]")
+        language = detect_language(original_text)
+        if not language:
+            print("Не удалось определить язык текста.")
+            return
+        
+        print(f"Язык определён как -> [{language}]")
 
-    if language == 'ru':
-        alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
-    elif language == 'en':
-        alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    elif language == 'greek':
-        alphabet = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
-    elif language == 'hebr':
-        alphabet = 'אבגדהוזחטיכלמנסעפצקרשת'
-    elif language == 'phnx':
-        alphabet = '𐤀𐤁𐤂𐤃𐤄𐤅𐤆𐤇𐤈𐤉𐤊𐤋𐤌𐤍𐤎𐤏𐤐𐤑𐤒𐤓𐤔𐤕'
-    elif language == 'arab':
-        alphabet = 'أبجدﻩوزحطيكلمنسعفصقرشتثخذضظغ'
-    elif language == 'rune':
-        alphabet = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛈᛇᛉᛊᛏᛒᛖᛗᛚᛜᛟᛞ'
+        if language == 'ru':
+            alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
+        elif language == 'en':
+            alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        elif language == 'greek':
+            alphabet = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+        elif language == 'hebr':
+            alphabet = 'אבגדהוזחטיכלמנסעפצקרשת'
+        elif language == 'phnx':
+            alphabet = '𐤀𐤁𐤂𐤃𐤄𐤅𐤆𐤇𐤈𐤉𐤊𐤋𐤌𐤍𐤎𐤏𐤐𐤑𐤒𐤓𐤔𐤕'
+        elif language == 'arab':
+            alphabet = 'أبجدﻩوزحطيكلمنسعفصقرشتثخذضظغ'
+        elif language == 'rune':
+            alphabet = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛈᛇᛉᛊᛏᛒᛖᛗᛚᛜᛟᛞ'
         
 
-    
-    while True:
-
         while True:
-            choice = input("  1 - Зашифровать, 2 - Расшифровать:\n> ")
-            if choice == "1" or choice == "2":
+            choice = input("  1 - Зашифровать / Расшифровать:\n> ")
+            if choice == "1":
                 break
         
         encrypted_text = atbash(original_text, language, alphabet)
 
         with open(file_path, 'a', encoding='utf-8') as file:
-            file.write("\n\n=== === ===\n")
+            file.write("\n\n===== Шифр Атбаш =====\n")
             file.write(encrypted_text)
 
         print("Результат добавлен в файл.")
