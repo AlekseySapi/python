@@ -53,10 +53,6 @@ def main():
         
         print(f"Язык определён как -> [{language}]")
 
-        if language == 'ru':
-            alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
-        elif language == 'en':
-            alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
             
 
         while True:
