@@ -90,6 +90,7 @@ def atbash(text, language, alphabet):
 
 
 def main():
+    print(line)
     while True:
         file_path = input("# Введите путь к файлу:\n> ").strip()
         if not os.path.exists(file_path):
@@ -159,7 +160,7 @@ def main():
         if choice1 == "1":
 
             while True:
-                choice2 = input("  1 - Зашифровать, 2 - Расшифровать:\n> ")
+                choice2 = input(" (Классический сдвиг шифра Цезаря: 3)\n  1 - Зашифровать, 2 - Расшифровать:\n> ")
                 if choice2 == "1" or choice2 == "2":
                     break
 
