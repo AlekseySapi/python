@@ -25,7 +25,7 @@ while True:
     letter_counts = Counter(letters)
 
     # Получаем топ самых частых букв
-    n = 10
+    n = 15
     top = letter_counts.most_common(n)
 
 
@@ -33,4 +33,12 @@ while True:
     print(f"Топ {n} самых частых букв:")
     for i, (letter, count) in enumerate(top, start=1):
         print(f"{i}) '{letter}'  x{count}")
+
+
+    
+    with open(file_path, 'a', encoding='utf-8') as file:
+        file.write("\n\n===== Топ букв =====\n")
+        file.write(str([char for char, _ in top]))
+
+    print("\nРезультат в виде массива добавлен в файл.")
     print(line)
