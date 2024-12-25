@@ -2,12 +2,16 @@ import os
 
 line = "\n##### ##### ##### ##### #####"
 
+# Сдвиги символов
+shift = 250
+arab_shift = 700
+
 
 def xor(text, key):
     res = []
     for i, char in enumerate(text):
         char_code = ord(char)
-        key_code = ord(key[i % len(key)])
+        key_code = ord(key[i % len(key)]) + shift
         res.append(chr(char_code ^ key_code))
     return ''.join(res)
 
