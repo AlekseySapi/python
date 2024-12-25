@@ -3,8 +3,12 @@ import os
 line = "\n##### ##### ##### ##### #####"
 
 # Сдвиги символов
-shift = 250
+shift = 220
 arab_shift = 700
+lines_shift = 9490
+dots_shift = 10300
+ch_shift = 15000
+symb_shift = 40950
 
 
 def xor(text, key):
