@@ -2,5 +2,4 @@
 __pycache__
 cipher_sapi_old.py
 ci_sapi.py
-1.txt
-w.txt
+*.txt
