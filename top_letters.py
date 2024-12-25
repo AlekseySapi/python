@@ -26,7 +26,7 @@ while True:
 
     # Получаем топ самых частых букв
     n = 10
-    top = letter_counts.most_common(10)
+    top = letter_counts.most_common(n)
 
 
     print(line)
