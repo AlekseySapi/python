@@ -4,65 +4,53 @@ import os
 
 line = "\n##### ##### ##### ##### #####"
 
+eng_alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+rus_alph = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
 
-def vigenere_cipher(text, key):
-    eng_alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    rus_alph = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
-    text = text.upper()  # Преобразуем весь текст в заглавные буквы
-    key = key.upper()
-    
-    encrypted_text = []
+
+
+# TODO -> Доработать, пока неверно шифрует
+
+
+def vigenere_cipher(text, key, mode):
+    result = []
     key_index = 0
-    
-    for char in text:
-        if char in eng_alph:
-            text_index = eng_alph.index(char)
-            key_char = key[key_index % len(key)]  # Перебираем ключ
-            key_index_char = eng_alph.index(key_char)
-            encrypted_index = (text_index + key_index_char) % len(eng_alph)
-            encrypted_text.append(eng_alph[encrypted_index])
-            key_index += 1  # Переходим к следующему символу ключа
-        elif char in rus_alph:
-            text_index = rus_alph.index(char)
-            key_char = key[key_index % len(key)]  # Перебираем ключ
-            key_index_char = rus_alph.index(key_char)
-            encrypted_index = (text_index + key_index_char) % len(rus_alph)
-            encrypted_text.append(rus_alph[encrypted_index])
-            key_index += 1  # Переходим к следующему символу ключа
-        else:
-            encrypted_text.append(char)  # Не изменяем символы, которые не в алфавите (например, пробелы)
-    
-    return ''.join(encrypted_text)
 
-
-def vigenere_decipher(text, key):
-    eng_alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    rus_alph = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
-    text = text.upper()
-    key = key.upper()
-    
-    decrypted_text = []
-    key_index = 0
-    
     for char in text:
-        if char in eng_alph:
-            text_index = eng_alph.index(char)
-            key_char = key[key_index % len(key)]
-            key_index_char = eng_alph.index(key_char)
-            decrypted_index = (text_index - key_index_char) % len(eng_alph)
-            decrypted_text.append(eng_alph[decrypted_index])
-            key_index += 1
-        if char in rus_alph:
-            text_index = rus_alph.index(char)
-            key_char = key[key_index % len(key)]
-            key_index_char = rus_alph.index(key_char)
-            decrypted_index = (text_index - key_index_char) % len(rus_alph)
-            decrypted_text.append(rus_alph[decrypted_index])
-            key_index += 1
+        if 'А' <= char <= 'Я' or char in 'Ё':
+            alphabet = rus_alph
+        if 'а' <= char <= 'я' or char in 'ё':
+            alphabet = rus_alph.lower()
+        elif 'A' <= char <= 'Z':
+            alphabet = eng_alph
+        elif 'a' <= char <= 'z':
+            alphabet = eng_alph.lower()
         else:
-            decrypted_text.append(char)
-    
-    return ''.join(decrypted_text)
+            result.append(char)  # Если не буква, добавляем без изменений
+            continue
+
+        char_index = alphabet.index(char)
+        key_char = key[key_index % len(key)]
+        if 'А' <= key_char <= 'Я' or key_char in 'Ё':
+            key_alphabet = rus_alph
+        if 'а' <= key_char <= 'я' or key_char in 'ё':
+            key_alphabet = rus_alph.lower()
+        elif 'A' <= key_char <= 'Z':
+            key_alphabet = eng_alph
+        elif 'a' <= key_char <= 'z':
+            key_alphabet = eng_alph.lower()
+        key_shift = key_alphabet.index(key_char)  # Сдвиг по букве ключа
+
+        # Шифрование или дешифровка
+        if mode == "encrypt":
+            new_index = (char_index + key_shift) % len(alphabet)
+        else:  # Дешифровка
+            new_index = (char_index - key_shift) % len(alphabet)
+
+        result.append(alphabet[new_index])
+        key_index += 1  # Переход к следующему символу ключа
+
+    return ''.join(result)
 
 
 
@@ -90,7 +78,7 @@ def main():
 
         if choice == "1":
 
-            ciphed_text = vigenere_cipher(text, key)
+            ciphed_text = vigenere_cipher(text, key, 'encrypt')
 
             with open(file_path, 'a', encoding='utf-8') as file:
                 file.write("\n\n=== Зашифрованный текст ===\n")
@@ -100,7 +88,7 @@ def main():
 
         elif choice == "2":
 
-            unciphed_text = vigenere_decipher(text, key)
+            unciphed_text = vigenere_cipher(text, key, 'decrypt')
 
             with open(file_path, 'a', encoding='utf-8') as file:
                 file.write("\n\n=== Расшифрованный текст ===\n")
