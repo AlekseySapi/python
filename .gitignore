@@ -1,7 +1,7 @@
 .idea/
 __pycache__
 cipher_sapi_old.py
+ci_sapi_old.py
 ci_sapi.py
-ci_xor_sapi.py
 ci_v_sapi.py
 *.txt
