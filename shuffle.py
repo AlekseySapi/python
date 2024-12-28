@@ -22,13 +22,12 @@ def main():
     with open(file_path, 'r', encoding='utf-8') as file:
         text = file.read()
 
-    shuffled_text = shuffle(text)
-
 
     with open(file_path, 'a', encoding='utf-8') as file:
-                file.write("\n\n=== Перемешанный текст ===\n")
-                file.write(shuffled_text)
-
+        file.write("\n\n\n=== Перемешанный текст ===\n")
+        for i in range (10):
+            file.write(f"\n{i} > {shuffle(text)}")
+                    
     print("Текст перемешан.")
 
 
