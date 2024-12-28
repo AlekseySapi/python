@@ -1,21 +1,33 @@
+# Вариант шифрования через XOR с доп паролем
+
 import os
 
 line = "\n##### ##### ##### ##### #####"
 
 # Сдвиги символов
-shift = 220
+ltr_shift = 220
 arab_shift = 700
 lines_shift = 9490
 dots_shift = 10300
 ch_shift = 15000
-symb_shift = 40950
+
+current_shift = ltr_shift
 
 
 def xor(text, key):
     res = []
     for i, char in enumerate(text):
         char_code = ord(char)
-        key_code = ord(key[i % len(key)]) + shift
+        key_code = ord(key[i % len(key)]) + current_shift
+        res.append(chr(char_code ^ key_code))
+    return ''.join(res)
+
+def xor_plus(text):
+    key = 'roqKwLxuAsVfN7UFPiM6cz4I1SWajY0EDhbk8y93mtg2BCdlOGe5JQTnpZXRvH'
+    res = []
+    for i, char in enumerate(text):
+        char_code = ord(char)
+        key_code = ord(key[i % len(key)])
         res.append(chr(char_code ^ key_code))
     return ''.join(res)
 
@@ -44,7 +56,7 @@ def main():
 
         if choice == "1":
 
-            xored_text = xor(text, key)
+            xored_text = xor_plus(xor(text, key))
 
             with open(file_path, 'a', encoding='utf-8') as file:
                 file.write("\n\n=== Зашифрованный текст ===\n")
@@ -53,8 +65,8 @@ def main():
             print("Зашифровано.")
 
         elif choice == "2":
-
-            unxored_text = xor(text, key)
+            
+            unxored_text = xor(xor_plus(text), key)
 
             with open(file_path, 'a', encoding='utf-8') as file:
                 file.write("\n\n=== Расшифрованный текст ===\n")
