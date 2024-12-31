@@ -59,12 +59,12 @@ def insert_spaces(text):
 
         # Случайное добавление переноса строки
         if short_line_count == rand_short_nl and is_short_nl:
-            result.append("\n")
+            result.append(",\n")
             short_line_count = max_len
             line_count = 0
             is_nl = False
         if line_count == rand_nl and is_nl:
-            result.append("\n")
+            result.append(".\n")
             short_line_count = 0
             line_count = 0
             is_short_nl = False
