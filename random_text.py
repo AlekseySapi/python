@@ -3,7 +3,7 @@ import random
 
 line = '\n======= ======= ======='
 
-alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,.'
+alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
 
 def random_text(n):
@@ -89,8 +89,7 @@ def main():
 
 
     with open(file_path, 'a', encoding='utf-8') as file:
-        for i in range (10):
-            file.write(text)
+        file.write(text)
                     
     print("Текст создан.")
 
