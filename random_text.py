@@ -3,10 +3,11 @@ import random
 
 line = '\n======= ======= ======='
 
-alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+eng = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+rus = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 
 
-def random_text(n):
+def random_text(n, alphabet):
     res = []
     for i in range(n):
         res.append(random.choice(alphabet))
@@ -82,13 +83,22 @@ def main():
             break
 
     
+    lang = int(input("\nКакой алфавит использовать для текста?\n  1 - ENG, 2 - RUS:\n> "))
+
+    if lang == 2:
+        alphabet = rus
+    else:
+        alphabet = eng
+
+
     n = int(input("\nКол-во символов в тексте:\n> "))
 
-    text = random_text(n)
+    text = random_text(n, alphabet)
     text = insert_spaces(text)
 
 
     with open(file_path, 'a', encoding='utf-8') as file:
+        file.write('\n\n')
         file.write(text)
                     
     print("Текст создан.")
