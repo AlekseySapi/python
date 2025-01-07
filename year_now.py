@@ -1,6 +1,6 @@
 import datetime
 
-line = '\n======= ======= ======='
+line = '\n======= ======= ======= ======= ======='
 
 
 def year_now():
@@ -9,9 +9,13 @@ def year_now():
 
 def main():
     print(line)
+    print(" === Год в разных календарях мира ===")
 
-    this_year = year_now()                
-    print(f"Сейчас: {this_year} год")
+    this_year = year_now()
+    print(f"\n<< {this_year} год >>")
+
+    ch_year = this_year + 2697
+    print(f"\nКитай: {ch_year} год")
 
 
     print()
