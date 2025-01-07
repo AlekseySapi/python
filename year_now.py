@@ -17,6 +17,10 @@ def main():
     ch_year = this_year + 2697
     print(f"\nКитай: {ch_year} год")
 
+    jap1_year = this_year - 2019
+    jap2_year = this_year + 660
+    print(f"\nЯпония: {jap1_year} год  < или >  {jap2_year} год")
+
 
     print()
 
