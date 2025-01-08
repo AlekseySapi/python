@@ -1,17 +1,18 @@
-import datetime
+from datetime import date
 
 line = '\n======= ======= ======= ======= ======='
 
 
-def year_now():
-    return datetime.datetime.now().year
+today = date.today()
+this_year = today.year
+month = today.month
+day = today.day
 
 
 def main():
     print(line)
     print(" === Год в разных календарях мира ===")
 
-    this_year = year_now()
     print(f"\n << Сейчас >>")
     print(f"<< {this_year} год >>")
 
@@ -24,6 +25,15 @@ def main():
 
     budd_year = this_year + 543
     print(f"\nБуддийский: {budd_year} год")
+
+    crt_heb_year = this_year + 3761
+    print(f"\nОт Сотворения мира (иуд.): {crt_heb_year} год")
+
+    if month < 9:
+        crt_byz_year = this_year + 5509 - 1
+    else:
+        crt_byz_year = this_year + 5509
+    print(f"От Сотворения мира (визант.): {crt_byz_year} год")
 
 
     print()
