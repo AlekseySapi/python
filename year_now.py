@@ -12,7 +12,8 @@ def main():
     print(" === Год в разных календарях мира ===")
 
     this_year = year_now()
-    print(f"\n<< {this_year} год >>")
+    print(f"\n << Сейчас >>")
+    print(f"<< {this_year} год >>")
 
     ch_year = this_year + 2697
     print(f"\nКитай: {ch_year} год")
@@ -20,6 +21,9 @@ def main():
     jap1_year = this_year - 2019
     jap2_year = this_year + 660
     print(f"\nЯпония: {jap1_year} год  < или >  {jap2_year} год")
+
+    budd_year = this_year + 543
+    print(f"\nБуддийский: {budd_year} год")
 
 
     print()
