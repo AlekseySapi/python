@@ -1,6 +1,6 @@
 from datetime import date
 
-line = '\n======= ======= ======= ======= ======='
+line = '\n========= ========= ========= ========= ========='
 
 
 today = date.today()
@@ -11,7 +11,7 @@ day = today.day
 
 def main():
     print(line)
-    print(" === Год в разных календарях мира ===")
+    print(" ===== Год в разных системах летосчисления =====")
 
     print(f"\n << Сейчас >>")
     print(f"<< {this_year} год >>")
@@ -36,7 +36,7 @@ def main():
     print(f"От Сотворения мира (визант.): {crt_byz_year} год")
 
 
-    print()
+    print(line)
 
 
 
