@@ -25,7 +25,7 @@ def main():
 
     with open(file_path, 'a', encoding='utf-8') as file:
         file.write("\n\n\n======= ======= ======= ======= =======\n")
-        for i in range (10):
+        for i in range(10):
             # file.write(f"\n{i} > {shuffle(text)}")
             file.write(f"\n'{shuffle(text)}'")
 
