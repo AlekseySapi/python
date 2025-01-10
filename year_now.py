@@ -26,7 +26,7 @@ def main():
     budd_year = this_year + 543
     print(f"\nБуддийский: {budd_year} год")
 
-    crt_heb_year = this_year + 3761
+    crt_heb_year = this_year + 3760
     print(f"\nОт Сотворения мира (иуд.): {crt_heb_year} год")
 
     if month < 9:
