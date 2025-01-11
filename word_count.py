@@ -53,7 +53,7 @@ def main():
 
     while True:
         # Запрашиваем путь к текстовому файлу
-        file_path = input("Введите путь к текстовому файлу: ")
+        file_path = input("\nВведите путь к текстовому файлу: ")
 
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
@@ -87,7 +87,7 @@ def main():
 
 
         # Вывод результата
-        print(f"== Топ {top_n} самых частых слов ==")
+        print(f"\n\n=== Топ {top_n} самых частых слов ===")
         i = 0
         for word, count in top_words:
             i += 1

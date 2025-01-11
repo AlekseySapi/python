@@ -2,6 +2,8 @@
 
 import re
 
+line = '\n======= ======= ======='
+
 
 def get_words(input_text):
 
@@ -22,9 +24,8 @@ def get_words(input_text):
 
 
 def main():
-
     while True:
-
+        print(line)
         file_path = input("Введите путь к текстовому файлу: ")
 
         try:
@@ -47,7 +48,6 @@ def main():
                 file.write("\n\n=== === ===\n")
                 file.write(words + "\n")
                 print(f"{n} слов(а) успешно добавлено в файл.")
-                print("\n=== === ===")
         except Exception as e:
             print(f"Произошла ошибка при записи файла: {e}")
             return

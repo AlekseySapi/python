@@ -28,7 +28,7 @@ def main():
         file.write('\n\n')
         file.write(cleared_text)
                     
-    print("Текст очищен.")
+    print("Текст очищен.\n")
 
 
 
