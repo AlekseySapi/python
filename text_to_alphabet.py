@@ -1,5 +1,7 @@
 import os
 
+line = '\n======= ======= ======='
+
 
 def get_alphabet(text):
     unique_chars = {}
@@ -15,6 +17,7 @@ def remove_spaces(text):
 
 def main():
     while True:
+        print(line)
         file_path = input("# Введите путь к файлу:\n> ").strip()
         if not os.path.exists(file_path):
             print("Файл не найден.")
@@ -31,7 +34,7 @@ def main():
         file.write(f'"{alphabet}"')
         file.write(f"\n\n> {len(alphabet)}")
 
-    print("Алфавит составлен.")
+    print("Алфавит составлен.\n")
 
 
 if __name__ == "__main__":

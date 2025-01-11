@@ -1,5 +1,8 @@
 # Классический калькулятор
 
+line = "\n========== ========== =========="
+
+
 def sum(a, b):
     res = a + b
     if res.is_integer():
@@ -33,6 +36,7 @@ def power(a, b):
 
 while True:
     while True:
+        print(line)
         user_input = input("Введите первое число: ")
         try:
             n1 = float(user_input)  # Пробуем преобразовать в число
@@ -76,17 +80,17 @@ while True:
 
     match op:
         case '+':
-            print(f"Сумма чисел: {n1} + {n2} = {sum(n1, n2)}\n=== === ===")
+            print(f"\nСумма чисел:  {n1} + {n2} = {sum(n1, n2)}")
         case '-':
-            print(f"Разность чисел: {n1} - {n2} = {diff(n1, n2)}\n=== === ===")
+            print(f"\nРазность чисел:  {n1} - {n2} = {diff(n1, n2)}")
         case '*':
-            print(f"Произведение чисел: {n1} * {n2} = {multi(n1, n2)}\n=== === ===")
+            print(f"\nПроизведение чисел:  {n1} * {n2} = {multi(n1, n2)}")
         case '/':
             if n2 == 0:
-                print("Ошибка: На ноль делить нельзя!\n=== === ===")
+                print("\nОшибка: На ноль делить нельзя!")
             else:
-                print(f"Частное чисел: {n1} / {n2} = {divide(n1, n2)}\n=== === ===")
+                print(f"\nЧастное чисел:  {n1} / {n2} = {divide(n1, n2)}")
         case '^':
-            print(f"Возведение в степень: {n1}^{n2} = {power(n1, n2)}\n=== === ===")
+            print(f"\nВозведение в степень:  {n1}^{n2} = {power(n1, n2)}")
         case _:
-            print("Ошибка..\n=== === ===")
+            print("\nОшибка..")

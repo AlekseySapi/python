@@ -101,7 +101,7 @@ def main():
         file.write('\n\n')
         file.write(text)
                     
-    print("Текст создан.")
+    print("Текст создан.\n")
 
 
 

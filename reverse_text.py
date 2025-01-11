@@ -1,11 +1,15 @@
 import os
 
+line = '\n======= ======= ======='
+
+
 def reverse_text(text):
     res = text[::-1]
     return res
 
 def main():
     while True:
+        print(line)
         file_path = input("# Введите путь к файлу:\n> ").strip()
         if not os.path.exists(file_path):
             print("Файл не найден.")
@@ -21,7 +25,7 @@ def main():
         file.write("\n\n=== Перевёрнутый текст ===\n")
         file.write(reversed_text)
 
-    print("Текст перевёрнут.")
+    print("Текст перевёрнут.\n")
 
 
 if __name__ == "__main__":

@@ -45,7 +45,7 @@ def main():
                 file.write("\n\n=== Перемешанный текст ===\n")
                 file.write(reversed_halves)
 
-    print("Текст перемешан.")
+    print("Текст перемешан.\n")
 
 
 

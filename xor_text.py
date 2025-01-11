@@ -1,5 +1,7 @@
 import os
 
+line = '\n======= ======= ======='
+
 
 def xor(text, key):
     i = 0
@@ -15,6 +17,7 @@ def xor(text, key):
 
 def main():
     while True:
+        print(line)
         file_path = input("# Введите путь к файлу:\n> ").strip()
         if not os.path.exists(file_path):
             print("Файл не найден.")
@@ -33,7 +36,7 @@ def main():
         file.write(f"\n\n=== XOR с ключём {key} ===\n")
         file.write(xored_text)
 
-    print("Результат записан в файл.")
+    print("Результат записан в файл.\n")
 
 
 if __name__ == "__main__":

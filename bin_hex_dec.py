@@ -12,7 +12,7 @@ def is_bin(num):
     except ValueError:
         return False
 
-line = "===== ===== ===== ===== ===== ===== ====="
+line = "\n===== ===== ===== ===== ===== ===== ====="
 line2 = "===== ===== =====\n  [db / hb] -> 2,\n  [bh / dh] -> 16,\n  [bd / hd] -> 10:"
 
 
