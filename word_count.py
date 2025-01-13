@@ -4,6 +4,8 @@ import nltk # type: ignore
 import string
 from collections import Counter
 
+line = "\n======= ======= ======= ======="
+
 
 # Мой список стоп-слов
 '''
@@ -52,8 +54,9 @@ def preprocess_text(text):
 def main():
 
     while True:
+        print(line)
         # Запрашиваем путь к текстовому файлу
-        file_path = input("\nВведите путь к текстовому файлу: ")
+        file_path = input("Введите путь к текстовому файлу: ")
 
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
@@ -92,7 +95,6 @@ def main():
         for word, count in top_words:
             i += 1
             print(f"{i}) {word}: {count}")
-        print("======= ======= ======= =======")
 
 
 if __name__ == "__main__":
