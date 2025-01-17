@@ -21,3 +21,4 @@ pyperclip.copy(chars_str)
 print("\n>> Символы скопированы в буфер обмена.\n")
 
 print()
+input()
