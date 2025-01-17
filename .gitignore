@@ -5,6 +5,7 @@ ci_sapi_old.py
 ci_sapi.py
 ci_sapi_new.py
 ci_sapi_neo.py
+ci_neo_cons.py
 ci_v_sapi.py
 pass_upgrade.py
 *.txt
