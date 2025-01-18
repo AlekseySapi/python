@@ -107,7 +107,7 @@ def main():
                     plus = ord(char) * c + ord(char) % (c * 10)
                     key_num += plus
                     c += 1
-                n = ord(key[0]) % 10
+                n = (ord(key[0]) % 9) + 1
                 if ord(key[0]) % 2 != 0:
                     n *= -1
                 shift = (key_num + n) % (len(key) * n)
