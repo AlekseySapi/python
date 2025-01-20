@@ -12,17 +12,17 @@ getcontext().prec = 42
 ##################################################################################################################################
 constants = {
     'c': Decimal('299792458'),       #  м/с  ->  E = m * c^2  [Скорость света]
-    'h': Decimal('6.62607015'),      #  *10^(−34)  Дж·с  ->  E = h * ν  < Энергия фотона >  [Постоянная Планка]
-    'el': Decimal('1.602176634'),    #  *10^(−19)  Кл  [Заряд электрона]
-    'g_const': Decimal('6.67430'),   #  *10^(−11)  м³/(кг·с²)  [Гравитационная постоянная]
+    'h': Decimal('6.62607015E-34'),      #  *10^(−34)  Дж·с  ->  E = h * ν  < Энергия фотона >  [Постоянная Планка]
+    'el': Decimal('1.602176634E-19'),    #  *10^(−19)  Кл  [Заряд электрона]
+    'g_const': Decimal('6.67430E-11'),   #  *10^(−11)  м³/(кг·с²)  [Гравитационная постоянная]
     'g': Decimal('9.8'),             #  м/с^2  [Ускорение свободного падения]
     'g_moon': Decimal('1.62'),       #  м/с^2  [Ускорение свободного падения на Луне]
     'g_mars': Decimal('3.86'),       #  м/с^2  [Ускорение свободного падения на Марсе]
-    'me': Decimal('9.1093837015'),   #  *10^(−31)  кг  [Модульная масса электрона]
-    'e0': Decimal('8.8541878128'),   #  *10^(−12)  Ф/м  ->  уравнения Максвелла  [Электромагнитная постоянная]
-    'kB': Decimal('1.380649'),       #  *10^(−23)  Дж/К  [Постоянная Больцмана]
-    'nA': Decimal('6.02214076'),     #  * 10^23  молекул/моль  [Число Авогадро]
-    'cL': Decimal('1.1'),            #  *10^(−52)  м^(−2)  ->  Расширение Вселенной (тёмная энергия)  Λ  [Космологич. постоянная]
+    'me': Decimal('9.1093837015E-31'),   #  *10^(−31)  кг  [Модульная масса электрона]
+    'e0': Decimal('8.8541878128E-12'),   #  *10^(−12)  Ф/м  ->  уравнения Максвелла  [Электромагнитная постоянная]
+    'kB': Decimal('1.380649E-23'),       #  *10^(−23)  Дж/К  [Постоянная Больцмана]
+    'nA': Decimal('6.02214076E23'),     #  * 10^23  молекул/моль  [Число Авогадро]
+    'cL': Decimal('1.1E-52'),            #  *10^(−52)  м^(−2)  ->  Расширение Вселенной (тёмная энергия)  Λ  [Космологич. постоянная]
     'al': Decimal('0.0072973525643'),    #  [Постоянная тонкой структуры] -> связывает фундаментальные константы (c, h, el)
     'al_rev': Decimal('137.035999177'),  #  Обратное значение
     'al_rev_int': Decimal('137'),        #  В виде целого числа
@@ -60,7 +60,12 @@ def format_number(n):
     return int(n) if n == n.to_integral_value() else n
 
 
-print("\n +  -  *  /   <--   Арифм. действия\n ^            <--   Возведение в степень")
+print("\n +  -  *  /   <--   Арифм. действия")
+print(" %   <--   Нахождение процента от числа")
+print(" ^            <--   Возведение в степень")
+print(" root   <--   Корень (для квадратного, укажите степень -> 2)")
+print("\n (i  ->  квадр. корень из -1)")
+
 while True:
     print(line)
     try:
@@ -75,8 +80,8 @@ while True:
         try:
             # Ввод действия
             operation = input(">> Введите действие: ")
-            if operation not in ('+', '-', '*', '/', '^'):
-                raise ValueError("Неверное действие.\n   Используйте  +, -, *, / или ^")
+            if operation not in ('+', '-', '*', '/', '%', '^', 'root'):
+                raise ValueError("Неверное действие.\n   Используйте  +, -, *, /, %, ^ или root")
             break
         except ValueError as e:
             print(f"\n!  Ошибка: {e}\n")
@@ -85,12 +90,20 @@ while True:
     while True:
         try:
             # Ввод второго числа
-            user_input = input("> Введите второе число или константу: ")
+            if operation == 'root':
+                user_input = input("> Введите степень корня: ")
+            else:
+                user_input = input("> Введите второе число или константу: ")
             n2 = get_constant_or_number(user_input)
+
 
             # Проверка деления на 0
             if operation == '/' and n2 == 0:
                 raise ZeroDivisionError("На 0 делить нельзя.")
+            if (operation == '^' or operation == 'root') and n2 <= 0:
+                raise ValueError
+            if operation == 'root' and n1 < 0 and n2 > 3 and n2 % 2 == 0:
+                raise ValueError
             break
         except (InvalidOperation, ValueError):
             print("\n!  Ошибка. Попробуйте снова.\n")
@@ -98,7 +111,10 @@ while True:
         except ZeroDivisionError as e:
             print(f"\n!  Ошибка: {e}\n")
             continue
-
+            
+              
+    complex_check = False
+    neg_check = False
     # Выполнение операции
     if operation == '+':
         result = n1 + n2
@@ -108,15 +124,32 @@ while True:
         result = n1 * n2
     elif operation == '/':
         result = n1 / n2
+    elif operation == '%':
+        result = (n1 * n2) / 100
     elif operation == '^':
         result = n1 ** n2
+    elif operation == 'root':
+        if n1 < 0 and n2 == 2:
+            complex_check = True
+            n1 *= -1
+        elif n1 < 0 and n2 % 2 != 0:
+            neg_check = True
+            n1 *= -1
+        dec_root = Decimal(1) / Decimal(n2)
+        result = n1 ** dec_root
+    	
 
     # Форматируем числа и выводим результат
     n1_formatted = format_number(n1)
     n2_formatted = format_number(n2)
     result_formatted = format_number(result)
 
-    print(f"\n\n[  Результат:  {n1_formatted} {operation} {n2_formatted} = {result_formatted}  ]\n")
+    if complex_check:
+        print(f"\n\n[  Результат:  -{n1_formatted} {operation} {n2_formatted} = {result_formatted} * i  ]\n")
+    elif neg_check:
+        print(f"\n\n[  Результат:  -{n1_formatted} {operation} {n2_formatted} = -{result_formatted}  ]\n")
+    else:
+        print(f"\n\n[  Результат:  {n1_formatted} {operation} {n2_formatted} = {result_formatted}  ]\n")
 
     pyperclip.copy(result_formatted)
     print("(Скопировано в буфер обмена)")
