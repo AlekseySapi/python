@@ -1,6 +1,6 @@
 import os
 
-line = "\n##### ##### ##### ##### #####"
+line = '\n####### ####### ####### ####### #######'
 
 
 def xor_file(input_file, output_file, key):
@@ -19,19 +19,24 @@ def xor_file(input_file, output_file, key):
 def main():
     '''
     file = 'img.jpg'
-    encrypted_file = 'img_encrypted.jpg'
+    encrypted_file = 'img_crypted.jpg'
     decrypted_file = 'img_decrypted.jpg'
     '''
+    
+    file = 'img.png'
+    encrypted_file = 'img_crypted.png'
+    decrypted_file = 'img_decrypted.png'
+    
     '''
     file = 'track.mp3'
-    encrypted_file = 'track_encrypted.mp3'
+    encrypted_file = 'track_crypted.mp3'
     decrypted_file = 'track_decrypted.mp3'
     '''
-
+    '''
     file = 'text.txt'
-    encrypted_file = 'text_encrypted.txt'
+    encrypted_file = 'text_crypted.txt'
     decrypted_file = 'text_decrypted.txt'
-    
+    '''
     while True:
         print(line)
         choice = input("  1 - Зашифровать, 2 - Расшифровать:\n> ")
@@ -39,7 +44,7 @@ def main():
             key = 0
             while not (0 < key < 256):
                 try:
-                    key = int(input(" Введите ключ (1-255):\n> "))
+                    key = int(input("Введите ключ (1-255): "))
                 except ValueError:
                     continue
 
