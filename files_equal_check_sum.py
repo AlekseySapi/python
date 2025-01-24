@@ -6,7 +6,7 @@ line = "\n##### ##### ##### ##### #####"
 
 
 def file_sum(data):
-    return sum((num + (i % 10)) * i for i, num in enumerate(data, start=1))
+    return sum((num + 1) * i for i, num in enumerate(data, start=1))
 
 
 def main():
