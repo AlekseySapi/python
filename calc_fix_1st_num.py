@@ -71,8 +71,8 @@ if __name__ == "__main__":
     while True:
         try:
             # Ввод первого числа
-            user_input = input("> Введите первое число или константу: ")
-            n1 = get_constant_or_number(user_input)
+            user_input1 = input("> Введите первое число или константу: ")
+            n1 = get_constant_or_number(user_input1)
         except (InvalidOperation, ValueError):
             print("\n!  Ошибка. Попробуйте снова.")
             continue
@@ -94,10 +94,10 @@ if __name__ == "__main__":
             try:
                 # Ввод второго числа
                 if operation == 'root':
-                    user_input = input("> Введите степень корня: ")
+                    user_input2 = input("> Введите степень корня: ")
                 else:
-                    user_input = input("> Введите второе число или константу: ")
-                n2 = get_constant_or_number(user_input)
+                    user_input2 = input("> Введите второе число или константу: ")
+                n2 = get_constant_or_number(user_input2)
 
 
                 # Проверка деления на 0
@@ -153,6 +153,8 @@ if __name__ == "__main__":
             print(f"\n[  Результат:  -{n1_formatted} {operation} {n2_formatted} = -{result_formatted}  ]\n\n")
         else:
             print(f"\n[  Результат:  {n1_formatted} {operation} {n2_formatted} = {result_formatted}  ]\n\n")
+
+        print(f'> Первое число: {user_input1}')
 
 
 ####  Поле для расчётов  ####
