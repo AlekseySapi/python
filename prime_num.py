@@ -4,7 +4,7 @@ line = '\n######## ######## ########'
 
 
 def is_prime(n):
-    if n == 1 or n == 2:
+    if n == 2:
         return True
     if n % 2 == 0:
         return False
@@ -24,8 +24,12 @@ def main():
     while True:
         print(line)
         while True:
-            num = int(input("# Введите число:\n> "))
-            if num < 1:
+            try:
+                num = int(input("# Введите число:\n> "))
+            except:
+                print()
+                continue
+            if num < 2:
                 print()
                 continue
             else:
