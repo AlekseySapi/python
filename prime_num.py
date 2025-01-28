@@ -1,12 +1,19 @@
-
+import math
 
 line = '\n######## ######## ########'
 
 
 def is_prime(n):
+    if n == 1 or n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+    
     i = 3
-    mid = (n - 2) // 4
-    for _ in range(mid):
+    sqrt = math.isqrt(n)  # Округление корня в меньшую сторону
+    # print(f'Корень = {sqrt}')
+    while i <= sqrt:
+        # print(i)
         if n % i == 0:
             return False
         i += 2
@@ -16,7 +23,13 @@ def is_prime(n):
 def main():
     while True:
         print(line)
-        num = int(input("# Введите число:\n> "))
+        while True:
+            num = int(input("# Введите число:\n> "))
+            if num < 1:
+                print()
+                continue
+            else:
+                break
 
         if is_prime(num):
             print(f"  Число {num} ->  Простое")
