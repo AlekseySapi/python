@@ -16,7 +16,7 @@ def main():
     print(f"\n << Сейчас >>")
     print(f"<< {this_year} год >>")
 
-    ch_year = this_year + 2697
+    ch_year = this_year + 2698
     print(f"\nКитай: {ch_year} год")
 
     jap1_year = this_year - 2019
