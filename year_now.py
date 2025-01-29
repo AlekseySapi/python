@@ -38,6 +38,7 @@ def main():
 
     print(line)
     print()
+    input()
 
 
 
