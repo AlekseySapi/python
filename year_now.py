@@ -26,6 +26,9 @@ def main():
     budd_year = this_year + 543
     print(f"\nБуддийский: {budd_year} год")
 
+    rome_year = this_year + 753
+    print(f"\nОт основания Рима: {rome_year} год")
+
     crt_heb_year = this_year + 3760
     print(f"\nОт Сотворения мира (иуд.): {crt_heb_year} год")
 
