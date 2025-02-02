@@ -38,6 +38,9 @@ def main():
         crt_byz_year = this_year + 5509
     print(f"От Сотворения мира (визант.): {crt_byz_year} год")
 
+    human_year = this_year + 10000
+    print(f"\nЧеловеческая эра (голоцен): {human_year} год")
+
 
     print(line)
     print()
