@@ -1,7 +1,6 @@
 import pygame
 import random
 import sys
-import winsound
 
 # Инициализация Pygame
 pygame.init()
@@ -29,7 +28,7 @@ food_spawn = True
 
 def draw_snake(snake_blocks):
     for block in snake_blocks:
-        pygame.draw.rect(screen, SOFT_GREEN, pygame.Rect(block[0], block[1], CELL_SIZE, CELL_SIZE), border_radius=2)
+        pygame.draw.rect(screen, SOFT_GREEN, pygame.Rect(block[0], block[1], CELL_SIZE, CELL_SIZE), border_radius=3)
 
 def draw_food(food_pos):
     pygame.draw.rect(screen, SOFT_ORANGE, pygame.Rect(food_pos[0], food_pos[1], CELL_SIZE, CELL_SIZE), border_radius=8)
