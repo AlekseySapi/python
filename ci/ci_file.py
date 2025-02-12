@@ -8,8 +8,12 @@ def xor_file(input_file, output_file, key):
     with open(input_file, 'rb') as infile:
         data = infile.read()
 
-    # Применяем XOR на каждый байт (ключ  -->  1-255)
-    encrypted_data = bytes([b ^ key for b in data])
+    key_bytes = key.encode()  # Преобразование строкового ключа в байты
+    print(list(key_bytes))
+    key_length = len(key_bytes)
+
+    # XOR на каждый байт файла циклично по байтам ключа
+    encrypted_data = bytes([data[i] ^ key_bytes[i % key_length] for i in range(len(data))])
 
     # Сохраняем результат
     with open(output_file, 'wb') as outfile:
@@ -30,12 +34,7 @@ def main():
 
         choice = input("  1 - Зашифровать, 2 - Расшифровать:\n> ")
         if choice in ('1', '2'):
-            key = 0
-            while not (0 < key < 256):
-                try:
-                    key = int(input("Введите ключ (1-255): "))
-                except ValueError:
-                    continue
+            key = input("key = ") or ' '
 
         if choice == '1':
             output_file = f"{filename}_crypted{ext}"
