@@ -3,5 +3,6 @@ __pycache__
 ci_sapi.py
 ci_sapi_neo.py
 ci_sapi_h.py
+ci_sapi_file.py
 pass_upgrade.py
 *.txt
