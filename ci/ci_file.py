@@ -32,9 +32,11 @@ def main():
         
         filename, ext = os.path.splitext(file)
 
-        choice = input("  1 - Зашифровать, 2 - Расшифровать:\n> ")
-        if choice in ('1', '2'):
-            key = input("key = ") or ' '
+        choice = ''
+        while choice not in ('1', '2'):
+            choice = input("\n  1 - Зашифровать, 2 - Расшифровать:\n> ")
+            
+        key = input("key = ") or ' '
 
         if choice == '1':
             output_file = f"{filename}_crypted{ext}"
