@@ -6,4 +6,5 @@ ci_sapi_h.py
 ci_sapi_file.py
 ci_sapi_png.py
 pass_upgrade.py
+extract_lsb_from_png.py
 *.txt
