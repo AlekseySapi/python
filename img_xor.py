@@ -37,7 +37,7 @@ def xor_img(image_path, key, mode):
 
     # Сохраняем файл в исходном формате
     if img.format == "JPEG":
-        result_img.save(output_file, format="JPEG", quality=95, optimize=True)
+        result_img.save(output_file, format="JPEG", quality=90, optimize=True)
     elif img.format == "PNG":
         result_img.save(output_file, format="PNG", compress_level=6, optimize=True)
     else:
