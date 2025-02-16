@@ -32,7 +32,7 @@ def main():
     while True:
         print(line)
         while True:
-            file = input("# Введите имя PNG-файла:\n> ")
+            file = input("# Введите имя файла:\n> ")
             if not os.path.isfile(file):
                 print("Файл не найден.\n")
             else:
