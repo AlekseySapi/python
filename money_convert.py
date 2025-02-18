@@ -3,7 +3,7 @@
 line = '\n############### ############### ###############'
 
 
-def convert(rub, choice):
+def convert_to_curr(rub, choice):
         """Конвертация рублей в выбранную валюту."""
         if choice == '1':
             usd = str(round(rub / 102.376, 2))
@@ -14,6 +14,15 @@ def convert(rub, choice):
         elif choice == '3':
             jpy = str(round(rub / 0.637, 2))
             return jpy + ' JPY'
+        
+def convert_to_rub(curr, choice):
+        """Конвертация валюты в рубли."""
+        if choice == '1':
+            return str(round(curr * 102.376, 2))
+        elif choice == '2':
+            return str(round(curr * 105.807, 2))
+        elif choice == '3':
+            return str(round(curr * 0.637, 2))
 
 '''
 
@@ -31,16 +40,37 @@ def main():
     print(" <  Перевод валют (по данным на 17.02.2025)  >\n")
     while True:
         print(line)
-        try:
-            rub = round(float(input("# Введите сумму в рублях:\n> ")), 2)
-        except:
-            continue
 
-        choice = ''
-        while choice not in ('1', '2', '3'):
-            choice = input("\n# Выберите валюту (1 - USD, 2 - EUR, 3 - JPY):\n> ")
+        choice1 = ''
+        while choice1 not in ('1', '2'):
+            choice1 = input("\n  1 - Из рублей, 2 - В рубли:\n> ")
 
-        print(f'\n{rub} RUB = {convert(rub, choice)}')
+        if choice1 == '1':
+            try:
+                rub = round(float(input("\n# Введите сумму в рублях:\n> ")), 2)
+            except:
+                continue
+
+            choice2 = ''
+            while choice2 not in ('1', '2', '3'):
+                choice2 = input("\n# Выберите валюту (1 - USD, 2 - EUR, 3 - JPY):\n> ")
+
+            print(f'\n{rub} RUB = {convert_to_curr(rub, choice2)}')
+        else:
+            choice_curr = ''
+            while choice_curr not in ('1', '2', '3'):
+                choice_curr = input("\n# Выберите валюту (1 - USD, 2 - EUR, 3 - JPY):\n> ")
+            try:
+                curr = round(float(input("\n# Введите сумму:\n> ")), 2)
+            except:
+                continue
+            
+            if choice_curr == '1':
+                print(f'\n{curr} USD = {convert_to_rub(curr, choice_curr)} RUB')
+            elif choice_curr == '2':
+                print(f'\n{curr} EUR = {convert_to_rub(curr, choice_curr)} RUB')
+            elif choice_curr == '3':
+                print(f'\n{curr} JPY = {convert_to_rub(curr, choice_curr)} RUB')
 
 
 if __name__ == "__main__":
