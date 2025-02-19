@@ -2,12 +2,12 @@ from PIL import Image
 import numpy as np
 import os
 
-line = '\n####### ####### ####### ####### #######'
+line = '\n############### ############### ###############'
 
 
-def xor_img(image_path, key, mode):
+def xor_img(input_file, output_file, key):
     # Открываем изображение
-    img = Image.open(image_path)
+    img = Image.open(input_file)
     
     # Преобразуем изображение в массив numpy
     img_array = np.array(img)
@@ -29,12 +29,6 @@ def xor_img(image_path, key, mode):
     # Преобразуем обратно в изображение
     result_img = Image.fromarray(img_array.astype('uint8'))
 
-    # Определяем имя выходного файла
-    if mode == 'xor':
-        output_file = "img_xored" + os.path.splitext(image_path)[1]
-    else:
-        output_file = "img_original" + os.path.splitext(image_path)[1]
-
     # Сохраняем файл в исходном формате
     if img.format == "JPEG":
         result_img.save(output_file, format="JPEG", quality=90, optimize=True)
@@ -43,39 +37,33 @@ def xor_img(image_path, key, mode):
     else:
         result_img.save(output_file, format=img.format)
     
-    print(f'\nФайл [{output_file}] сохранён успешно.')
+    print(f'\n\n✅ Файл [{output_file}] успешно сохранён.\n')
 
 
 def main():
     while True:
         print(line)
-        choice = input("  1 - Зашифровать, 2 - Расшифровать:\n> ")
-        if choice == "1" or choice == "2":
-            key = 0
-            while not (0 < key < 256):
-                try:
-                    key = int(input("Введите ключ (1-255): "))
-                except ValueError:
-                    continue
-        if choice == "1":
-            while True:
-                format = input('jpg / png: ')
-                if format == 'jpg':
-                    xor_img("img.jpg", key, 'xor')
-                    break
-                elif format == 'png':
-                    xor_img("img.png", key, 'xor')
-                    break
-        elif choice == "2":
-            while True:
-                format = input('jpg / png: ')
-                if format == 'jpg':
-                    xor_img("img_xored.jpg", key, 'unxor')
-                    break
-                elif format == 'png':
-                    xor_img("img_xored.png", key, 'unxor')
-                    break
-        print()
+        while True:
+            file = input("# Введите имя файла:\n> ")
+            if not os.path.isfile(file):
+                print("Файл не найден.\n")
+            else:
+                break
+
+        filename, ext = os.path.splitext(file)
+        if ext.lower() not in ('.jpg', '.jpeg', '.png'):
+            print("\n⚠️  Ошибка: Неверный формат файла.\n")
+            continue
+        output_file = f"{filename}_xor{ext}"
+
+        key = 0
+        while not (0 < key < 256):
+            try:
+                key = int(input("\nВведите ключ (1-255): "))
+            except ValueError:
+                continue
+
+        xor_img(file, output_file, key)
 
 
 if __name__ == "__main__":
