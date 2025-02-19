@@ -3,3 +3,10 @@ sapi/
 temp/
 __pycache__
 *.txt
+*.png
+*.jpg
+*.m4a
+*.mp3
+*.fb2
+*.epub
+*.zip
