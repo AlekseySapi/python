@@ -51,19 +51,6 @@ while True:
 				choice = 1
 			if choice == 2 and b == 0:
 				choice = 0
-		else:
-			if choice == 0 and b == 0:
-				choice = 0
-			if choice == 0 and c == 0:
-				choice = 0
-			if choice == 1 and a == 0:
-				choice = 1
-			if choice == 1 and c == 0:
-				choice = 1
-			if choice == 2 and a == 0:
-				choice = 2
-			if choice == 2 and b == 0:
-				choice = 2
 			
 		if nums[choice]:
 			wins += 1
