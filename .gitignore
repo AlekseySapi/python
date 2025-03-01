@@ -5,8 +5,10 @@ __pycache__
 *.txt
 *.png
 *.jpg
+*.webp
 *.m4a
 *.mp3
+*.flac
 *.fb2
 *.epub
 *.zip
