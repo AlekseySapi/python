@@ -1,7 +1,7 @@
-import os
+# import os
 import random
 
-line = '\n####### ####### #######'
+line = '\n######## ######## ########'
 
 
 def shuffle(text):
@@ -11,26 +11,28 @@ def shuffle(text):
 
 
 def main():
+    print(line)
+    '''
     while True:
-        print(line)
         file_path = input("# Введите путь к файлу:\n> ").strip()
         if not os.path.exists(file_path):
             print("Файл не найден.")
         else:
             break
+    '''
+    file_path = 'w.txt'
 
     with open(file_path, 'r', encoding='utf-8') as file:
         text = file.read()
 
 
     with open(file_path, 'a', encoding='utf-8') as file:
-        file.write("\n\n\n======= ======= ======= ======= =======\n")
+        file.write("\n\n\n============== ============== ==============\n")
         for i in range(10):
             # file.write(f"\n{i} > {shuffle(text)}")
-            file.write(f"\n'{shuffle(text)}'")
+            file.write(f"\n{shuffle(text)}")
 
-    print("Текст перемешан.")
-    print(line)
+    print("\n✅ Текст перемешан!\n\n")
 
 
 
