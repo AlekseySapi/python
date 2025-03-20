@@ -1,19 +1,18 @@
 import random
 
-line = '\n========== ========== =========='
+line = '\n============= ============= ============='
 
 def new_number():
     return random.randint(1, 100)
 
 def main():
-    print('\nИгра "Угадай число"\n')
-    print('Компьютер загадывает число от 1 до 100. Попробуй угадать!')
+    print('\nИгра "Угадай число"  (от 1 до 100)')
     print('\nВведите ->  pass  <- чтобы начать заново')
     
     while True:
         number = new_number()
         print(line)
-        print('   < Новое число загадано! >\n')
+        print('       <  Новое число загадано!  >\n')
         
         win = False
         step = 0
@@ -36,11 +35,11 @@ def main():
                 user_num = int(user_num)
                 
                 if user_num < number:
-                    print(' Загаданное число больше\n')
+                    print(' Загаданное число больше [>]\n')
                 elif user_num > number:
-                    print(' Загаданное число меньше\n')
+                    print(' Загаданное число меньше [<]\n')
                 else:
-                    print('\n Вы угадали!\n')
+                    print('\n ✅ Вы угадали!\n')
                     win = True
 
 if __name__ == "__main__":
