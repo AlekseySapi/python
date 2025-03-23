@@ -38,6 +38,8 @@ def main():
             num1 = get_random_number(digits1)
             num2 = get_random_number(digits2)
             if operation in ('*', '/'):
+                while num1 == 1:
+                    num1 = get_random_number(digits2)
                 while num2 == 1:
                     num2 = get_random_number(digits2)
             
