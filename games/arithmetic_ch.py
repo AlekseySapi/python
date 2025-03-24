@@ -22,7 +22,7 @@ def get_choices(num, operation):
     i = 0
     for _ in range(num_len):
         i += 1
-        if i % 3 == 0:
+        if i % 4 == 0:
             k *= 10
     while len(choices) < 4:
         if operation == '/':
