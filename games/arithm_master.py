@@ -3,30 +3,18 @@ import random
 line = '\n================ ================ ================'
 
 def get_random_number(digits):
-    num = 0
-    while num == 0:
-        num = random.randint(-10**digits + 1, 10**digits - 1)
-    return num
-
-def get_random_divisible_number(digits):
-    num2 = random.randint(2, 10)
-    num1 = num2 * random.randint(1, 10**digits // num2)
-    return num1, num2
+    ch = random.choice([1, 2])
+    if ch == 1:
+        return random.randint(2, 10**digits - 1)
+    else:
+        return random.randint(2, 9)
 
 def generate_expression(digits):
-    operations = ['+', '-', '*', '/']
+    operations = ['+', '-', '*']
     op1, op2 = random.choices(operations, k=2)
     
-    if op1 == '/':
-        num1, num2 = get_random_divisible_number(digits)
-    else:
-        num1, num2 = get_random_number(digits), get_random_number(digits)
+    num1, num2, num3 = get_random_number(digits), get_random_number(digits), get_random_number(digits)
     
-    if op2 == '/':
-        num2, num3 = get_random_divisible_number(digits)
-    else:
-        num3 = get_random_number(digits)
-
     expr = f"{num1} {op1} {num2} {op2} {num3}"
     correct_result = eval(expr)
     
@@ -57,7 +45,7 @@ def main():
                 
         if correct_answers % 3 == 0:
             digits += 1
-            print(f'\n🔥 Уровень повышен! Теперь числа до {10**digits - 1}!')
+            print(f'\n🔥 Предел генерации чисел повышен до {10**digits - 1}!')
 
 if __name__ == "__main__":
     main()
