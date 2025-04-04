@@ -4,15 +4,20 @@ line = '\n################# ################# #################'
 
 def text_shuffle(text):
 	chars = []
-	temp = []
-	i = 1
+	temp1 = []
+	temp2 = []
+	i = 2
 	for char in text:
 		if i % 2 == 0:
-			temp.append(char)
+			temp1.append(char)
+		elif i % 3 == 0:
+			temp2.append(char)
 		else:
 			chars.append(char)
 		i += 1
-	for char in temp:
+	for char in temp1:
+		chars.append(char)
+	for char in temp2:
 		chars.append(char)
 	return ''.join(chars)
 
