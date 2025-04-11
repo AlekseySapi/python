@@ -6,18 +6,28 @@ def text_shuffle(text):
 	chars = []
 	temp1 = []
 	temp2 = []
+	temp3 = []
+	temp4 = []
 	i = 2
 	for char in text:
 		if i % 2 == 0:
 			temp1.append(char)
 		elif i % 3 == 0:
 			temp2.append(char)
+		elif i % 5 == 0:
+			temp3.append(char)
+		elif i % 7 == 0:
+			temp4.append(char)
 		else:
 			chars.append(char)
 		i += 1
 	for char in temp1:
 		chars.append(char)
 	for char in temp2:
+		chars.append(char)
+	for char in temp3:
+		chars.append(char)
+	for char in temp4:
 		chars.append(char)
 	return ''.join(chars)
 
