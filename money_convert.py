@@ -1,28 +1,31 @@
 # Конвертер валют по курсу на 17.02.2025
 
 line = '\n############### ############### ###############'
+usd_c = 80.76
+eur_c = 93.67
+jpy_c = 0.57
 
 
 def convert_to_curr(rub, choice):
         """Конвертация рублей в выбранную валюту."""
         if choice == '1':
-            usd = str(round(rub / 102.376, 2))
+            usd = str(round(rub / usd_c, 2))
             return usd + ' USD'
         elif choice == '2':
-            eur = str(round(rub / 105.807, 2))
+            eur = str(round(rub / eur_c, 2))
             return eur + ' EUR'
         elif choice == '3':
-            jpy = str(round(rub / 0.637, 2))
+            jpy = str(round(rub / jpy_c, 2))
             return jpy + ' JPY'
         
 def convert_to_rub(curr, choice):
         """Конвертация валюты в рубли."""
         if choice == '1':
-            return str(round(curr * 102.376, 2))
+            return str(round(curr * usd_c, 2))
         elif choice == '2':
-            return str(round(curr * 105.807, 2))
+            return str(round(curr * eur_c, 2))
         elif choice == '3':
-            return str(round(curr * 0.637, 2))
+            return str(round(curr * jpy_c, 2))
 
 '''
 
@@ -32,12 +35,18 @@ def convert_to_rub(curr, choice):
 100 японских иен (JPY) = 63,7144 рубля
 
 
+    21.04.2025
+1 доллар США (USD) = 80,76 рублей
+1 евро (EUR) = 93,67 рубля
+100 японских иен (JPY) = 57 рублей
+
+
 '''
 
 
 def main():
     print(line)
-    print(" <  Перевод валют (по данным на 17.02.2025)  >\n")
+    print(" <  Перевод валют (по данным на 21.04.2025)  >\n")
     while True:
         print(line)
 
