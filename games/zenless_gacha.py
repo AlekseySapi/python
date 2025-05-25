@@ -3,33 +3,24 @@
 import random
 
 line = '\n################# ################# #################'
+characters = ['Hugo Vlad', 'Nekomata', 'Koleda', 'Grace', 'Rina', 'Lycaon', 'Soldier 11']
+chances = [52, 8, 8, 8, 8, 8, 8]
+v = ['S', 'poop']
 
 def check_win(pools, choice, character):
-	v = ['S', 'poop']
-	if pools < 74:
-		w = [12, 988]
-		for _ in range(int(choice)):
-			pools += 1
-			if pools == 90:
-				return True, pools
-			res = random.choices(v, weights=w, k=1)
-			if res[0] == 'S':
-				char_choice = ['Hugo', 'Nekomata', 'Koleda', 'Grace', 'Rina', 'Lycaon', 'Soldier 11']
-				chances = [52, 8, 8, 8, 8, 8, 8]
-				character = random.choices(char_choice, weights=chances, k=1)[0]
-				return True, pools, character
-		return False, pools, character
-	else:
-		w = [25, 75]
-		for _ in range(int(choice)):
-			pools += 1
-			res = random.choices(v, weights=w, k=1)
-			if res[0] == 'S':
-				char_choice = ['Hugo', 'Nekomata', 'Koleda', 'Grace', 'Rina', 'Lycaon', 'Soldier 11']
-				chances = [52, 8, 8, 8, 8, 8, 8]
-				character = random.choices(char_choice, weights=chances, k=1)[0]
-				return True, pools, character
-		return False, pools, character
+	for _ in range(int(choice)):
+		if 0 <= pools < 29:
+			w = [10, 990]
+		elif 29 <= pools < 74:
+			w = [7, 993]
+		else:
+			w = [25, 75]
+		res = random.choices(v, weights=w, k=1)[0]
+		if res == 'S' or pools == 90:
+			character = random.choices(characters, weights=chances, k=1)[0]
+			return True, pools, character
+		pools += 1
+	return False, pools, character
 
 
 def main():
@@ -52,6 +43,7 @@ def main():
 		win, pools, character = check_win(pools, choice, character)
 		if win:
 			print(f"\n  Поздравляем!!! Вы получили персонажа  << {character} >>    (на {pools} крутке)\n")
+			input()
 			break
 		else:
 			print(f'\n  К сожалению, пока только "poop"...\n\nОсталось {user_pools} круток')
