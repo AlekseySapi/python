@@ -9,24 +9,38 @@ v = ['S', 'poop']
 
 def check_win(pools, choice, character):
 	for _ in range(int(choice)):
-		if 0 <= pools < 29:
+		pools += 1
+		if 0 < pools < 29:
 			w = [10, 990]
 		elif 29 <= pools < 74:
 			w = [7, 993]
-		else:
+		elif pools == 74:
+			w = [7, 93]
+		elif pools == 75:
+			w = [13, 87]
+		elif pools == 76:
+			w = [19, 81]
+		elif pools == 77:
 			w = [25, 75]
+		elif pools == 78:
+			w = [31, 69]
+		elif pools == 79:
+			w = [35, 65]
+		elif pools == 80:
+			w = [42, 58]
+		else:
+			w = [7, 93]
 		res = random.choices(v, weights=w, k=1)[0]
 		if res == 'S' or pools == 90:
 			character = random.choices(characters, weights=chances, k=1)[0]
 			return True, pools, character
-		pools += 1
 	return False, pools, character
 
 
 def main():
 	print('\n        === Симулятор гачи Zenless Zone Zero ===')
 	user_pools = 90     # Всего круток в наличии
-	pools = 0		# Откручено
+	pools = 0			# Откручено
 	character = ''
 	while True:
 		print(line)
@@ -37,7 +51,8 @@ def main():
 		while choice not in ('1', '10'):
 			s += '>'
 			choice = input(f'{s} ').strip()
-			if user_pools - int(choice) < 0: choice = '0'	# Вариант обхода недостаточности круток (последняя десятка)
+			if choice.isdigit():
+				if pools + int(choice) > 90: choice = '0'	# Вариант обхода недостаточности круток (последняя десятка)
 		user_pools -= int(choice)
 
 		win, pools, character = check_win(pools, choice, character)
