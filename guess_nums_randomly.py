@@ -20,6 +20,14 @@ def main():
                 s += '>'
         if user_num < 0: user_num *= -1
 
+        rand_num_str = ''
+        num_len = len(str(user_num))
+        for _ in range(num_len):
+            rand_num = random.randint(0, 9)
+            rand_num_str += str(rand_num)
+
+        print(f"\nДумаю, это число ->  {rand_num_str}\n")
+
 
         input()
 
