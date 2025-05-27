@@ -27,8 +27,13 @@ def main():
         while notWin:
             rand_num_str = ''
             num_len = len(str(user_num))
+            first_num = True
             for _ in range(num_len):
-                rand_num = random.randint(0, 9)
+                if first_num:
+                    rand_num = random.randint(1, 9)
+                else:
+                    rand_num = random.randint(0, 9)
+                first_num = False
                 rand_num_str += str(rand_num)
             print(f"> {rand_num_str}")
             if rand_num_str == str(user_num):
