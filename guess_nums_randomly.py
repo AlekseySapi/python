@@ -29,7 +29,7 @@ def main():
             num_len = len(str(user_num))
             first_num = True
             for _ in range(num_len):
-                if first_num:
+                if first_num and num_len > 1:
                     rand_num = random.randint(1, 9)
                 else:
                     rand_num = random.randint(0, 9)
