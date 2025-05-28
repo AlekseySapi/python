@@ -2,11 +2,11 @@
 
 import random
 
-line = '\n################# ################# #################'
+line = '\n############### ############### ###############'
 
 
 def main():
-    print('\n     === Подбор числовой последовательности ===')
+    print('\n  === Подбор числовой последовательности ===')
     while True:
         print(line)
         print("\nВведите число:")
@@ -19,6 +19,7 @@ def main():
             except:
                 s += '>'
         if user_num < 0: user_num *= -1
+        num_len = len(str(user_num))
 
         print("\nПопытки:\n")
 
@@ -27,7 +28,6 @@ def main():
         while notWin:
             rand_num_str = ''
             rand_num_list = []
-            num_len = len(str(user_num))
             first_num = True
             for _ in range(num_len):
                 if first_num and num_len > 1:
