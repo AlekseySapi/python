@@ -24,12 +24,15 @@ def main():
             else:
                 break
         pass_len = len(str(user_pass))
-
-        print("\nПопытки:\n")
+        total_steps = len(alphabet) ** pass_len
+        perc_1 = int(total_steps / 100)
+        perc_10 = int(total_steps / 10)
+        print()
 
         steps = 1
         notWin = True
         used_pass_list = []
+        p = 0
         while notWin:
             while True:
                 rand_pass = ''
@@ -43,16 +46,21 @@ def main():
                 else:
                     used_pass_list.append(rand_pass)
                     break
-            print(f"> {rand_pass}")
+            if pass_len > 1:
+                if (steps % perc_1) == 0:
+                    p += 1
+                    print(f".. {p}%")
+            else:
+                if (steps % perc_10) == 0:
+                    p += 10
+                    print(f".. {p}%")
             if rand_pass == user_pass:
                 notWin = False
             else:
                 steps += 1
 
-        total_steps = len(alphabet) ** pass_len
-        percent = int((steps / total_steps) * 100)
         print(f"\nПароль ->  {rand_pass}")
-        print(f"\nПопыток использовано:  {steps} из {total_steps}  ({percent}%)\n")
+        print(f"\nПопыток использовано:  {steps} из {total_steps}  ({p}%)\n")
 
 
         input()
