@@ -29,10 +29,15 @@ def main():
             print(f"\nБросок {n} кубиков:\n")
         die = []
         i = 0
+        win = True
         for _ in range(n):
             die.append(random.randint(1, 6))
             print(f"> {die[i]}")
+            if die[i] != 6:
+                win = False
             i += 1
+        if win:
+            print("\nПобеда!!!")
         input()
 
 
