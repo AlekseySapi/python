@@ -1,4 +1,4 @@
-# Подбрасывание трёх кубиков
+# Бросок кубиков
 
 import random
 import time
@@ -7,32 +7,33 @@ line = '\n############### ############### ###############'
 
 
 def main():
-    print('\n      === Подбрасывание трёх кубиков ===')
+    print('\n         ===== Бросок кубиков =====')
     while True:
         random.seed(time.time())
         print(line)
-        print("\nБросаем кубики? (y/Y):")
-        s = ''
-        answer = ''
+        print("\nСколько кубиков бросаем (1, 2, 3, 4 или 5)?")
+        s = '>'
         while True:
-            if answer not in ['y', 'Y']:
-                s += '>'
-                answer = input(f'{s} ').strip()
-            else:
+            n = input(f"{s} ")
+            if n in ['1', '2', '3', '4', '5']:
+                n = int(n)
                 break
+            else:
+                s += '>'
+                continue
         print()
 
-        die_1 = random.randint(1, 6)
-        die_2 = random.randint(1, 6)
-        die_3 = random.randint(1, 6)
-
-        print(f" Первый кубик:  {die_1}\n Второй кубик:  {die_2}\n Третий кубик:  {die_3}")
-
-        if die_1 == 1 and die_2 == 1 and die_3 == 1:
-            print("\n Мдаа..) Увы...")
-        elif die_1 == 6 and die_2 == 6 and die_3 == 6:
-            print("\n Победа!!!")
-        print()
+        if n == 1:
+            print(f"\nБросок 1 кубика:\n")
+        else:
+            print(f"\nБросок {n} кубиков:\n")
+        die = []
+        i = 0
+        for _ in range(n):
+            die.append(random.randint(1, 6))
+            print(f"> {die[i]}")
+            i += 1
+        input()
 
 
 if __name__ == "__main__":
