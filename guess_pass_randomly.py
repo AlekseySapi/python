@@ -31,7 +31,7 @@ def main():
 
         steps = 1
         notWin = True
-        used_pass_list = []
+        used_pass_set = set()
         p = 0
         while notWin:
             while True:
@@ -41,10 +41,10 @@ def main():
                     rand_char = random.choice(alphabet)
                     rand_chars.append(rand_char)
                 rand_pass = ''.join(rand_chars)
-                if rand_pass in used_pass_list:
+                if rand_pass in used_pass_set:
                     continue
                 else:
-                    used_pass_list.append(rand_pass)
+                    used_pass_set.add(rand_pass)
                     break
             if pass_len > 1:
                 if (steps % perc_1) == 0:
