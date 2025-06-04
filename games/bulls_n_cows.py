@@ -5,10 +5,7 @@ n = 4
 
 def new_num():
     digits = list(range(10))
-    first_digit = random.choice(digits[1:])
-    digits.remove(first_digit)
     random.shuffle(digits)
-    digits = [first_digit] + digits
     return ''.join(str(digit) for digit in digits[:n])
 
 def check_num(user_num, num):
@@ -40,7 +37,7 @@ def main():
             print(f"== {step} шаг ==")
             user_num = ''
             s = ''
-            while not ((len(set(user_num)) == 4) and (len(user_num) == 4) and (user_num[0] in '123456789')):
+            while not ((len(set(user_num)) == 4) and (len(user_num) == 4)):
                 s += '>'
                 try:
                     user_num = input(f"{s} ")
