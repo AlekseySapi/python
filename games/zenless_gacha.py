@@ -1,9 +1,9 @@
-# Симулятор гачи Zenless Zone Zero для версии 1.7
+# Симулятор гачи Zenless Zone Zero для версии 2.0
 
 import random
 
 line = '\n################# ################# #################'
-characters = ['Hugo Vlad', 'Nekomata', 'Koleda', 'Grace', 'Rina', 'Lycaon', 'Soldier 11']
+characters = ['Yixuan', 'Nekomata', 'Koleda', 'Grace', 'Rina', 'Lycaon', 'Soldier 11']
 chances = [52, 8, 8, 8, 8, 8, 8]
 v = ['S', 'poop']
 
