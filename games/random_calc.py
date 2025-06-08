@@ -23,6 +23,7 @@ def main():
                 s += '>'
         print()
 
+        print(" Результат:")
         op = random.randint(0, 2)
         n = user_num + random.randint(0, 999)
         if n < 0: n *= -1
