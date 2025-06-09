@@ -30,14 +30,18 @@ def main():
         die = []
         i = 0
         win = True
+        sum = 0
         for _ in range(n):
             die.append(random.randint(1, 6))
+            sum += die[i]
             print(f"> {die[i]}")
             if die[i] != 6:
                 win = False
             i += 1
         if win:
             print("\nПобеда!!!")
+        elif i != 1:
+            print(f"\nСумма: {sum}")
         input()
 
 
