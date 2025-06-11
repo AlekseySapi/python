@@ -3,7 +3,7 @@
 import random
 
 line = '\n############### ############### ###############'
-q = ["2 * 2 =", "Утро для тебя - это.."]
+q = ['2 * 2 =\n1 - "4", 2 - "5", 3 - не знаю, 4 - неважно', 'Утро для тебя - это..\n1 - Кофе, 2 - Суета, 3 - Медитация, 4 - другое']
 
 
 def main():
@@ -11,8 +11,7 @@ def main():
     while True:
         answers = ''
         print(line)
-        print(f"\n>> {q[0]}\n")
-        print('1 - "4", 2 - "5", 3 - не знаю, 4 - неважно')
+        print(f"\n   >>  {q[0]}\n")
         s = '>'
         while True:
             n1 = input(f"{s} ")
@@ -24,8 +23,7 @@ def main():
                 continue
         print()
 
-        print(f"\n>> {q[1]}\n")
-        print('1 - Кофе, 2 - Суета, 3 - Медитация, 4 - другое')
+        print(f"\n  >>  {q[1]}\n")
         s = '>'
         while True:
             n2 = input(f"{s} ")
@@ -42,6 +40,7 @@ def main():
             print(" >>  https://t.me/sapi_group  <<")
         else:
             print("Опрос пройден!")
+        print()
         input()
 
 
