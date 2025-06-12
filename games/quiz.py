@@ -3,10 +3,20 @@
 import random
 
 line = '\n############### ############### ###############'
+current_shift = ord('ꀀ')
 q = [
-    '2 * 2 =\n1 - "4", 2 - "5", 3 - не знаю, 4 - неважно',
+    '2 * 2 =\n1 - "2", 2 - "4", 3 - "5", 4 - неважно',
     'Утро для тебя - это..\n1 - Кофе, 2 - Суета, 3 - Медитация, 4 - другое'
     ]
+t = 'ꀸꐫꐉꐁꑳꑰꐏꐏꀓꀑꐠꑺꀒꐎꑲꐏꑺꐊꐊꀑꐌꐎꑲꐏꑳꀝꀒꐏꑰꐃꐇꑳꐊꐃꀒꐌꐂꀑꐀꑰꐇꀑꐀꐏꐍꑱꐌꑰꑹꀑꐈꐁꐈꀑꐊꀑꑽꀐꀸꀑꐦꐏꐃꑱꐌꀑꐍꐏꐄꐁꐉꐏꐀꐁꑰꑽꀒꐃꀒꐍꐌꑿꀒꐂꑲꑲꐍꐎꑱꀋꀸꀑꀌꀏꀒꀑꁚꁅꁆꁁꁁꀋꀝꀞꁆꀟꁟꁔꀝꁂꁓꁁꁛꁮꁕꁃꁝꁄꁂꀑꀒꀍꀎ'
+
+def xor(text, key):
+    res = []
+    for i, char in enumerate(text):
+       char_code = ord(char)
+       key_code = ord(key[i % len(key)]) + current_shift
+       res.append(chr(char_code ^ key_code))
+    return "".join(res)
 
 
 def main():
@@ -38,11 +48,8 @@ def main():
                 continue
         print()
 
-        if answers == '11':
-            print("\nКлассно! Вы прошли опрос, ответив на все опросы как и я!\n Добро пожаловать в мою группу:")
-            print(" >>  https://t.me/sapi_group  <<")
-        else:
-            print("Опрос пройден!")
+        print("\nОпрос пройден!\n\n")
+        print(xor(t, answers))
         print()
         input()
 
