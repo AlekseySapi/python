@@ -24,29 +24,20 @@ def main():
     while True:
         answers = ''
         print(line)
-        print(f"\n   >>  {q[0]}\n")
-        s = '>'
-        while True:
-            n1 = input(f"{s} ")
-            if n1 in ['1', '2', '3', '4']:
-                answers += n1
-                break
-            else:
-                s += '>'
-                continue
-        print()
-
-        print(f"\n  >>  {q[1]}\n")
-        s = '>'
-        while True:
-            n2 = input(f"{s} ")
-            if n2 in ['1', '2', '3', '4']:
-                answers += n2
-                break
-            else:
-                s += '>'
-                continue
-        print()
+        i = 0
+        for _ in range(len(q)):
+            print(f"\n   >>  {q[i]}\n")
+            i += 1
+            s = '>'
+            while True:
+                n = input(f"{s} ")
+                if n in ['1', '2', '3', '4']:
+                    answers += n
+                    break
+                else:
+                    s += '>'
+                    continue
+            print()
 
         print("\nОпрос пройден!\n\n")
         print(xor(t, answers))
