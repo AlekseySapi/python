@@ -2,13 +2,13 @@
 
 import random
 
-line = '\n############### ############### ###############'
+line = '\n################# ################# #################'
 current_shift = ord('ꀀ')
 q = [
     '2 * 2 =\n1 - "2", 2 - "4", 3 - "5", 4 - неважно',
     'Утро для тебя - это..\n1 - Кофе, 2 - Суета, 3 - Медитация, 4 - другое'
     ]
-t = 'ꀸꐫꐉꐁꑳꑰꐏꐏꀓꀑꐠꑺꀒꐎꑲꐏꑺꐊꐊꀑꐌꐎꑲꐏꑳꀝꀒꐏꑰꐃꐇꑳꐊꐃꀒꐌꐂꀑꐀꑰꐇꀑꐀꐏꐍꑱꐌꑰꑹꀑꐈꐁꐈꀑꐊꀑꑽꀐꀸꀑꐦꐏꐃꑱꐌꀑꐍꐏꐄꐁꐉꐏꐀꐁꑰꑽꀒꐃꀒꐍꐌꑿꀒꐂꑲꑲꐍꐎꑱꀋꀸꀑꀌꀏꀒꀑꁚꁅꁆꁁꁁꀋꀝꀞꁆꀟꁟꁔꀝꁂꁓꁁꁛꁮꁕꁃꁝꁄꁂꀑꀒꀍꀎ'
+t = 'ꐩꐌꐅꑰꑸꐅꐊꀙꀔꐦꑳꀙꐍꑱꐋꑹꐉꐌꀓꐈꐋꑸꐎꑵꀝꀕꐇꑵꐂꐆꑱꐏꐇꀑꐄꐈꀔꐊꑵꐁꀘꐋꐌꐎꑵꐏꑳꑿꀓꐌꐄꐂꀐꐌꀑꑺꀘꀽꀐꐧꐍꐆꑵꐏꀙꐇꐊꐎꐄꐏꐆꐋꐂꑳꑹꀑꐀꀔꐏꐈꑺꀘꐃꑴꑲꐊꐆꑴꀊꀹꀓꀉꀋꀑꀙꁐꁀꁌꁄꁇꀂꀖꀝꁅꀛꁜꁗꀛꁀꁗꁄꁑꁯꁓꁃꁚꁌꁇꀐꀓꀏꀋ'
 
 def xor(text, key):
     res = []
@@ -18,9 +18,15 @@ def xor(text, key):
        res.append(chr(char_code ^ key_code))
     return "".join(res)
 
+def get_key(key):
+    key = int(key)
+    key *= key * 37
+    key = key ** 7
+    return str(key)[::-1]
+
 
 def main():
-    print('\n   === Sapi Quiz ===')
+    print('\n                  === Sapi Quiz ===')
     while True:
         answers = ''
         print(line)
@@ -39,8 +45,10 @@ def main():
                     continue
             print()
 
+        key = get_key(answers)
+
         print("\nОпрос пройден!\n\n")
-        print(xor(t, answers))
+        print(xor(t, key))
         print()
         input()
 
