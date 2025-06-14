@@ -21,6 +21,36 @@ def xor(text, key):
        res.append(chr(char_code ^ key_code))
     return "".join(res)
 
+def caesar(text, shift, alph):
+    result = []
+    for char in text:
+        if char in alph:
+            idx = alph.index(char)
+            new_idx = idx + shift
+            result.append(alph[new_idx % len(alph)])
+        else:
+            result.append(char)
+    return ''.join(result)
+
+def vigenere(text, key, alph, shift, mode):
+    result = []
+    key_index = 0
+    for char in text:
+        if char not in alph:
+            result.append(char)
+            continue
+        char_index = alph.index(char)
+        key_char = key[key_index % len(key)]
+        key_alphabet = caesar(alphabet, shift, alphabet)
+        key_shift = key_alphabet.index(key_char)
+        if mode == 'ci':
+            new_index = (char_index + key_shift) % len(alph)
+        else:
+            new_index = (char_index - key_shift) % len(alph)
+        result.append(alph[new_index])
+        key_index += 1
+    return ''.join(result)
+
 def get_key(key):
     key = int(key)
     key *= key * 37
