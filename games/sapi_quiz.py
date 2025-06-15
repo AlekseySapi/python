@@ -5,13 +5,13 @@ import random
 line = '\n################# ################# #################'
 
 # Алфавит - 158 символов
-alphabet = '!#$&()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё№'           
+alphabet = '!#$&()*+,-./ 0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё№'           
 current_shift = ord('ꀀ')
 q = [
     '2 * 2 =\n1 - "2", 2 - "4", 3 - "5", 4 - неважно',
     'Утро для тебя - это..\n1 - Кофе, 2 - Суета, 3 - Медитация, 4 - другое'
     ]
-t = 'ꐩꐌꐅꑰꑸꐅꐊꀙꀔꐦꑳꀙꐍꑱꐋꑹꐉꐌꀓꐈꐋꑸꐎꑵꀝꀕꐇꑵꐂꐆꑱꐏꐇꀑꐄꐈꀔꐊꑵꐁꀘꐋꐌꐎꑵꐏꑳꑿꀓꐌꐄꐂꀐꐌꀑꑺꀘꀽꀐꐧꐍꐆꑵꐏꀙꐇꐊꐎꐄꐏꐆꐋꐂꑳꑹꀑꐀꀔꐏꐈꑺꀘꐃꑴꑲꐊꐆꑴꀊꀹꀓꀉꀋꀑꀙꁐꁀꁌꁄꁇꀂꀖꀝꁅꀛꁜꁗꀛꁀꁗꁄꁑꁯꁓꁃꁚꁌꁇꀐꀓꀏꀋ'
+t = 'ꐉꁩꁦꀓꀶꀺꀽꀀꑲꁏꑫꀴꑧꑮꑜꀺꀻꀦꁴꀔꀓꁾꁴꁳꑻꀝꑽꀐꑷꑲꁰꁪꁠꀵꀪꀭꀜꀣꀑꀢꀌꑰꑤꑯꀲꀢꀱꀙꁴꀘꀢꁸ蕓ꁺꑿꀃꀀꀼꁶꐙꁠꁻꀕꀗꀇꀸꀺꀾꀼꀣꑵꑶꑰꑬꀱꀍꑚꀅꀮꀜꀇꀃꁬꁽꁮꐖꑵꀕꁹꀶꀉꀅꀰꀉꀆꑃꐭꐺꐶ腮ꀋꀄꀉꐡꀽꐐꐝꀞꑽꐂꑮꐚꐎꐓꐴꁀꁀꁁꀋꁾꀄꀇ'
 
 def xor(text, key):
     res = []
@@ -23,10 +23,12 @@ def xor(text, key):
 
 def caesar(text, shift, alph):
     result = []
+    i = 0
     for char in text:
         if char in alph:
             idx = alph.index(char)
-            new_idx = idx + shift
+            new_idx = idx + shift + i
+            i += 1 + shift % 9
             result.append(alph[new_idx % len(alph)])
         else:
             result.append(char)
@@ -41,8 +43,7 @@ def vigenere(text, key, alph, shift, mode):
             continue
         char_index = alph.index(char)
         key_char = key[key_index % len(key)]
-        key_alphabet = caesar(alphabet, shift, alphabet)
-        key_shift = key_alphabet.index(key_char)
+        key_shift = alph.index(key_char)
         if mode == 'ci':
             new_index = (char_index + key_shift) % len(alph)
         else:
@@ -51,11 +52,12 @@ def vigenere(text, key, alph, shift, mode):
         key_index += 1
     return ''.join(result)
 
-def get_key(key):
+def get_key(key, shift):
     key = int(key)
     key *= key * 37
-    key = key ** 7
-    return str(key)[::-1]
+    key = str(key ** 7)[::-1]
+    key = caesar(key, shift, alphabet)
+    return key
 
 
 def main():
@@ -78,10 +80,21 @@ def main():
                     continue
             print()
 
-        key = get_key(answers)
+        shift = 1 + int(answers) % 99
+        # print(f"\nshift:  {shift}\n")
 
-        print("\nОпрос пройден!\n\n")
-        print(xor(t, key))
+        key = get_key(answers, shift)
+        # print(f"\nkey:  {key}\n")
+
+        print("\nОпрос пройден!\n\n(..но открылось ли секретное сообщение...?)\n\n")
+
+        # viged_t = vigenere(t, key, alphabet, shift, 'ci')
+        # res = xor(viged_t, key)
+        unxored_t = xor(t, key)
+        res = vigenere(unxored_t, key, alphabet, shift, 'unci')
+        print()
+        print(res)
+
         print()
         input()
 
