@@ -25,7 +25,7 @@ def xor(text, key):
        res.append(chr(char_code ^ key_code))
     return "".join(res)
 
-def caesar(text, shift, alph):
+def caesar_plus_shift(text, shift, alph):
     result = []
     i = 0
     for char in text:
@@ -60,7 +60,7 @@ def get_key(key, shift):
     key = int(key)
     key *= key * 37
     key = str(key ** 7)[::-1]
-    key = caesar(key, shift, alphabet)
+    key = caesar_plus_shift(key, shift, alphabet)
     return key
 
 
