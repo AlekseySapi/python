@@ -15,7 +15,7 @@ q = [
     'Бог есть?\n1 - Да; 2 - Нет; 3 - Точно это неизвестно; 4 - Сомневаюсь',
     'Тебе бы хотелось жить вечно?\n1 - Да, конечно; 2 - Точно нет; 3 - Не думаю о таком; 4 - Даже не знаю..'
     ]
-t = 'ꐉꁩꁦꀓꀶꀺꀽꀀꑲꁏꑫꀴꑧꑮꑜꀺꀻꀦꁴꀔꀓꁾꁴꁳꑻꀝꑽꀐꑷꑲꁰꁪꁠꀵꀪꀭꀜꀣꀑꀢꀌꑰꑤꑯꀲꀢꀱꀙꁴꀘꀢꁸ蕓ꁺꑿꀃꀀꀼꁶꐙꁠꁻꀕꀗꀇꀸꀺꀾꀼꀣꑵꑶꑰꑬꀱꀍꑚꀅꀮꀜꀇꀃꁬꁽꁮꐖꑵꀕꁹꀶꀉꀅꀰꀉꀆꑃꐭꐺꐶ腮ꀋꀄꀉꐡꀽꐐꐝꀞꑽꐂꑮꐚꐎꐓꐴꁀꁀꁁꀋꁾꀄꀇ'
+t = 'ꁋꑹꀧꑡꑡꑯꀢꀀꀔꑐꀙꀌꀓꀒꀔꁾꁩꁧꀁ씫ꑥꑦꑾꀈꁼꁭꁰꁡꁤꀐꁮꁠꀽꀪꀥꀜꀡꀑꀦꑬꑰꑤꑧꑢꑤꀡꀉꀜꀸꑒꀨꁴꀦꑧꀃꀀꑄꀍꐲꑨꐙꑿꑺꁹꀙꁭꁫꁯꁸꁬꁭꁮꀪꀂꀃꀬꀇꀭꀚꀎꑪꑾꑿꑫꑦꀇꑶꀖꑽꀚꀽꑈꀶꀿꀤꀯꀒꁻꐵꀃꑨꑯꀀꀀ셰ꁙꁘꁗꁋꁱꀇꀀꑜꀀꑒꑍꀇꀏꑾꑗꑽꀝꑟꐺꑊꐻꁗꁄꀈꀻꁖꁯꁠꐟꀞꀚꁵꁶ'
 
 def xor(text, key):
     res = []
@@ -38,7 +38,7 @@ def caesar_plus_shift(text, shift, alph):
             result.append(char)
     return ''.join(result)
 
-def vigenere(text, key, alph, shift, mode):
+def vigenere(text, key, alph, mode):
     result = []
     key_index = 0
     for char in text:
@@ -48,6 +48,7 @@ def vigenere(text, key, alph, shift, mode):
         char_index = alph.index(char)
         key_char = key[key_index % len(key)]
         key_shift = alph.index(key_char)
+        # print(f"key_shift: {key_shift}")
         if mode == 'ci':
             new_index = (char_index + key_shift) % len(alph)
         else:
@@ -60,6 +61,7 @@ def get_key(key, shift):
     key = int(key)
     key *= key * 37
     key = str(key ** 7)[::-1]
+    # print(f"\nnum_key:\n{key}\n")
     key = caesar_plus_shift(key, shift, alphabet)
     return key
 
@@ -85,17 +87,19 @@ def main():
             print()
 
         shift = 1 + int(answers) % 99
-        # print(f"\nshift:  {shift}\n")
+        # print(f"\nshift: {shift}\n")
 
         key = get_key(answers, shift)
-        # print(f"\nkey:  {key}\n")
+        # print(f"\nkey:\n{key}\n")
 
         print("\nОпрос пройден!\n\n(..но открылось ли секретное сообщение...?)\n\n")
 
-        # viged_t = vigenere(t, key, alphabet, shift, 'ci')
+        # viged_t = vigenere(t, key, alphabet, 'ci')
+        # print(f"\nviged_t:\n{viged_t}\n")
         # res = xor(viged_t, key)
         unxored_t = xor(t, key)
-        res = vigenere(unxored_t, key, alphabet, shift, 'unci')
+        # print(f"\nunxored_t:\n{unxored_t}\n")
+        res = vigenere(unxored_t, key, alphabet, 'unci')
         print()
         print(res)
 
