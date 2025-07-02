@@ -68,21 +68,17 @@ def text_to_morse(text, morse_dict):
                 morse_letters.append('')  # если символа нет в словаре - пропускаем
         # Соединяем буквы одним пробелом
         morse_words.append(' '.join(morse_letters))
-    
-    # Соединяем слова тремя пробелами
-    return '   '.join(morse_words)
+    return ' / '.join(morse_words)
 
 
 def morse_to_text(morse_code, morse_dict):
     # Создаем обратный словарь: код Морзе -> символ
     reverse_morse = {v: k for k, v in morse_dict.items()}
     
-    # Сплит по 3 пробелам — делим на слова
     words = morse_code.strip().split('   ')
     decoded_words = []
     
     for word in words:
-        # Сплит по одному пробелу — делим на буквы
         letters = word.strip().split(' ')
         decoded_letters = []
         for letter_code in letters:
