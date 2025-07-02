@@ -98,31 +98,33 @@ def morse_to_text(morse_code, morse_dict):
 
 def main():
     print('\n               === Morse Translate ===')
-    print(line)
-    print("\n\nВыберите режим\n  1 - Morse to en; 2 - Morse to ru;\n  3 - en to Morse; 4 - ru to Morse:")
-    s = '>'
     while True:
-        n = input(f"{s} ")
-        if n in ['1', '2', '3', '4']:
-            ch = n
-            break
-    if ch in ['2', '4']:
-        current_dict = morse_ru
-    else:
-        current_dict = morse_en
-    
-    print("\nВведите код/текст:")
-    text = input("  ")
-    if ch in ['3', '4']:
-        result = text_to_morse(text, current_dict)
-    else:
-        result = morse_to_text(text, current_dict)
+        print(line)
+        print("\n\n< Выберите режим >\n  1 - Morse to en; 2 - Morse to ru;\n  3 - en to Morse; 4 - ru to Morse:")
+        s = '>'
+        while True:
+            n = input(f"{s} ")
+            if n in ['1', '2', '3', '4']:
+                ch = n
+                break
+        if ch in ['2', '4']:
+            current_dict = morse_ru
+        else:
+            current_dict = morse_en
+        
+        print("\nВведите код/текст:")
+        text = input("  ")
+        if ch in ['3', '4']:
+            result = text_to_morse(text, current_dict)
+        else:
+            text = text.replace('/', ' ')
+            result = morse_to_text(text, current_dict)
 
-    print("\nРезультат:")
-    print("  " + result)
+        print("\nРезультат:")
+        print("  " + result)
 
-    print()
-    input()
+        print()
+        input()
 
 
 if __name__ == "__main__":
