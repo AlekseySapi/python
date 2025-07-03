@@ -36,7 +36,7 @@ morse_en = {
 }
 
 morse_ru = {
-    'А': '.-',    'Б': '-...',  'В': '.--',   'Г': '--.',   'Д': '-..',   'Ё': '.',
+    'А': '.-',    'Б': '-...',  'В': '.--',   'Г': '--.',   'Д': '-..',
     'Е': '.',     'Ж': '...-',  'З': '--..',  'И': '..',    'Й': '.---',  'К': '-.-',
     'Л': '.-..',  'М': '--',    'Н': '-.',    'О': '---',   'П': '.--.',  'Р': '.-.',
     'С': '...',   'Т': '-',     'У': '..-',   'Ф': '..-.',  'Х': '....',  'Ц': '-.-.',
@@ -52,12 +52,39 @@ morse_ru = {
 }
 
 
+def clean_morse(morse_code):
+    table = str.maketrans({
+        '*': '.',
+        '°': '.',
+        '·': '.',   # U+00B7 (точка по центру)
+        '•': '.',	# U+2022 (жирная точка)
+        '●': '.',   # (U+25CF) - чёрный кружок
+        '⬤': '.',   # (U+2B24) - чёрный большой кружок
+        '◦': '.',   # U+25E6 (белый кружок)
+        '0': '.',
+        'o': '.',
+        'O': '.',
+        'e': '.',
+
+        '_': '-',    # нижнее подчёркивание
+        '–': '-',    # U+2013 (длинное тире)
+        '—': '-',    # U+2014 (em dash)
+        '−': '-',    # U+2212 (минус)
+        '=': '-',
+
+        '/': ' ',	# слэш
+        '\\': ' ',	# обратный слэш
+        '|': ' '
+    })
+    return morse_code.translate(table)
+
+
 def text_to_morse(text, morse_dict):
     # Результат для всех слов
     morse_words = []
     
     # Разбиваем по словам по пробелам в тексте
-    words = text.strip().upper().split()
+    words = text.strip().upper().replace('Ё', 'Е').split()
     
     for word in words:
         morse_letters = []
@@ -75,6 +102,8 @@ def morse_to_text(morse_code, morse_dict):
     # Создаем обратный словарь: код Морзе -> символ
     reverse_morse = {v: k for k, v in morse_dict.items()}
     
+    morse_code = clean_morse(morse_code)
+    
     words = morse_code.strip().split('   ')
     decoded_words = []
     
@@ -90,33 +119,57 @@ def morse_to_text(morse_code, morse_dict):
     
     # Собираем слова через пробел
     return ' '.join(decoded_words)
-
+    
+    
+def morse_to_bin(morse_code):
+    morse_code = clean_morse(morse_code)
+    table = str.maketrans({
+        '.': '10',
+        '-': '1110',
+        ' ': '00'
+    })
+    return morse_code.translate(table)[:-1]
+	
+	
+def bin_to_morse(bin_code):
+	bin_code += '0'
+	morse_code = bin_code.replace('1110', '-').replace('10', '.').replace('000000', ' / ').replace('00', ' ').replace('0', '')
+	return morse_code
+	
 
 def main():
     print('\n               === Morse Translate ===')
     while True:
         print(line)
-        print("\n\n< Выберите режим >\n  1 - Morse to en; 2 - Morse to ru;\n  3 - en to Morse; 4 - ru to Morse:")
+        print("\n\n< Выберите режим >\n  1 - Morse to en; 3 - Morse to ru; 5 - Morse to bin;\n  2 - en to Morse; 4 - ru to Morse; 6 - bin to Morse:")
         s = '>'
         while True:
             n = input(f"{s} ")
-            if n in ['1', '2', '3', '4']:
+            if n in ['1', '2', '3', '4', '5', '6']:
                 ch = n
                 break
-        if ch in ['2', '4']:
+        if ch in ['3', '4']:
             current_dict = morse_ru
         else:
             current_dict = morse_en
         
-        print("\nВведите код/текст:")
-        text = input("  ")
-        if ch in ['3', '4']:
-            result = text_to_morse(text, current_dict)
+        if ch in ['1', '3', '5', '6']:
+            v = "код"
         else:
-            text = text.replace('/', ' ')
+            v = "текст"
+        print(f"\nВведите {v}:")
+        text = input("  ")
+        if ch in ['2', '4']:
+            result = text_to_morse(text, current_dict)
+            result += '\n\n\nВ бинарном виде:\n  ' + morse_to_bin(result)
+        elif ch == '5':
+            result = morse_to_bin(text)
+        elif ch == '6':
+            result = bin_to_morse(text)
+        else:
             result = morse_to_text(text, current_dict)
 
-        print("\nРезультат:")
+        print("\n\nРезультат:")
         print("  " + result)
 
         print()
