@@ -148,6 +148,8 @@ def main():
             if n in ['1', '2', '3', '4', '5', '6']:
                 ch = n
                 break
+            else:
+                s += '>'
         if ch in ['3', '4']:
             current_dict = morse_ru
         else:
