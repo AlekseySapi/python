@@ -153,15 +153,15 @@ kana_morse = {
 
     'ヴ': '---...', # VU
 
-    'ァ': '..----',   # a-small
-    'ィ': '.-.---',   # i-small
-    'ゥ': '.--.--',   # u-small
-    'ェ': '.---.-',  # e-small
-    'ォ': '.----.',  # o-small
-    'ヮ': '-..---',  # wa-small
-    'ヰ': '-.-.--',   # wi
-    'ヱ': '-.--.-',   # we
-    'ヵ': '-.---.',  # ka-small
+    'ァ': '..----', # a-small
+    'ィ': '.-.---', # i-small
+    'ゥ': '.--.--', # u-small
+    'ェ': '.---.-', # e-small
+    'ォ': '.----.', # o-small
+    'ヮ': '-..---', # wa-small
+    'ヰ': '-.-.--', # wi
+    'ヱ': '-.--.-', # we
+    'ヵ': '-.---.', # ka-small
     'ヶ': '--..--'  # ke-small
 }
 
@@ -242,7 +242,7 @@ def bin_to_morse(bin_code):
 	
 
 def main():
-    print('\n           === Kana Morse Translate ===')
+    print('\n            === Kana Morse Translate ===')
     while True:
         print(line)
         print("\n\n< Choose mode >\n  1 - Morse to Kana; 3 - Morse to bin;\n  2 - Kana to Morse; 4 - bin to Morse:")
