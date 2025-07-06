@@ -2,12 +2,46 @@
 
 from collections import Counter
 import pandas as pd
+import unidic
+import fugashi
+import os
 
 line = '\n################# ################# #################'
 
 
+# Создаём таггер
+dicdir = os.path.normpath(unidic.DICDIR)
+tagger = fugashi.Tagger(f'-d "{dicdir}"')
+
+def get_reading(word):
+    # features - это список из разных полей словаря Unidic
+    features = word.feature
+    # Чтение (読み) в 9-м элементе (индекс 9)
+    try:
+        reading = features[9]
+        if reading == '*':
+            return None
+        return reading
+    except Exception:
+        return None
+
+def kanji_to_katakana(text: str) -> str:
+    result = []
+    for line in text.splitlines(keepends=True):
+        line_result = []
+        for word in tagger(line):
+            reading = get_reading(word)
+            # print(f'{word.surface} -> {reading}')  # Отладка
+            if reading:
+                line_result.append(reading)
+            else:
+                line_result.append(word.surface)
+        result.append(''.join(line_result))
+    return '\n'.join(result)
+
+
 def get_char_frequency(text):
-    text = text.replace('\n', '')  # удаляем все переводы строк
+    text = text.replace('\n', '')   # удаляем все переводы строк
     counts = Counter(text)
     total = sum(counts.values())
     df = pd.DataFrame(
@@ -21,33 +55,6 @@ def get_char_frequency(text):
     return df
 
 
-def hiragana_to_katakana(text):
-    table = str.maketrans({
-        'あ': 'ア', 'い': 'イ', 'う': 'ウ', 'え': 'エ', 'お': 'オ',
-        'か': 'カ', 'き': 'キ', 'く': 'ク', 'け': 'ケ', 'こ': 'コ',
-        'さ': 'サ', 'し': 'シ', 'す': 'ス', 'せ': 'セ', 'そ': 'ソ',
-        'た': 'タ', 'ち': 'チ', 'つ': 'ツ', 'て': 'テ', 'と': 'ト',
-        'な': 'ナ', 'に': 'ニ', 'ぬ': 'ヌ', 'ね': 'ネ', 'の': 'ノ',
-        'は': 'ハ', 'ひ': 'ヒ', 'ふ': 'フ', 'へ': 'ヘ', 'ほ': 'ホ',
-        'ま': 'マ', 'み': 'ミ', 'む': 'ム', 'め': 'メ', 'も': 'モ',
-        'や': 'ヤ', 'ゆ': 'ユ', 'よ': 'ヨ',
-        'ら': 'ラ', 'り': 'リ', 'る': 'ル', 'れ': 'レ', 'ろ': 'ロ',
-        'わ': 'ワ', 'を': 'ヲ', 'ん': 'ン',
-        'が': 'ガ', 'ぎ': 'ギ', 'ぐ': 'グ', 'げ': 'ゲ', 'ご': 'ゴ',
-        'ざ': 'ザ', 'じ': 'ジ', 'ず': 'ズ', 'ぜ': 'ゼ', 'ぞ': 'ゾ',
-        'だ': 'ダ', 'ぢ': 'ヂ', 'づ': 'ヅ', 'で': 'デ', 'ど': 'ド',
-        'ば': 'バ', 'び': 'ビ', 'ぶ': 'ブ', 'べ': 'ベ', 'ぼ': 'ボ',
-        'ぱ': 'パ', 'ぴ': 'ピ', 'ぷ': 'プ', 'ぺ': 'ペ', 'ぽ': 'ポ',
-        'ぁ': 'ァ', 'ぃ': 'ィ', 'ぅ': 'ゥ', 'ぇ': 'ェ', 'ぉ': 'ォ',
-        'ゃ': 'ャ', 'ゅ': 'ュ', 'ょ': 'ョ', 'っ': 'ッ',
-        'ゎ': 'ヮ',
-        'ゐ': 'ヰ', 'ゑ': 'ヱ',
-        'ゔ': 'ヴ',
-        'ゕ': 'ヵ', 'ゖ': 'ヶ'
-    })
-    return text.translate(table)
-
-
 def main():
     print('\n    === Топ символов японской каны по частоте ===')
     while True:
@@ -55,7 +62,18 @@ def main():
         file_path = 'w.txt'
         with open(file_path, 'r', encoding='utf-8') as file:
             text = file.read()
-        katakana_text = hiragana_to_katakana(text)
+        katakana_text = kanji_to_katakana(text)
+
+
+        ''' Просмотр полей словаря
+
+        for word in tagger('今日は雨です'):
+            print(f'Слово: {word.surface}')
+            for i, f in enumerate(word.feature):
+                print(f'  {i}: {f}')
+            print('---')
+
+        '''
 
         with open(file_path, 'a', encoding='utf-8') as file:
             file.write("\n\n\n=== Катакана ===\n")
