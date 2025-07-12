@@ -1,10 +1,15 @@
 # Конвертация Ромадзи в Катакану
 
-line = '\n################# ################# #################'
+import jaconv
+
+line = '\n############### ############### ###############'
+
+def romaji_to_katakana(text: str) -> str:
+    return jaconv.alphabet2kata(text.lower())
 
 
 def main():
-    print('\n    === Топ символов японской каны по частоте ===')
+    print('\n    === Конвертация Ромадзи в Катакану ===')
     while True:
         print(line)
         file_path = 'w.txt'
@@ -16,7 +21,7 @@ def main():
             file.write("\n\n\n=== Катакана ===\n")
             file.write(katakana_text)
 
-        print("\n\n\n  ✅ Конвертация в катакану завершена.\n")
+        print("\n\n  ✅ Конвертация в катакану завершена.\n")
         input()
 
 
