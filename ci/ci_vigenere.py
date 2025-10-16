@@ -1,7 +1,7 @@
 line = '\n########## ########## ##########'
 
-abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-zyx = "ZYXWVUTSRQPONMLKJIHGFEDCBA"
+ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ZYX = "ZYXWVUTSRQPONMLKJIHGFEDCBA"
 
 def vigenere(text, key, alph):
 	result = []
@@ -22,7 +22,7 @@ def vigenere(text, key, alph):
 def clear_key(key):
 	res = []
 	for ch in key:
-		if ch in abc:
+		if ch in ABC:
 			res.append(ch)
 	return ''.join(res)
 
@@ -40,9 +40,9 @@ def main():
 				s += '>'
 				choice = input(f'{s} ').strip()
 			if choice == '1':
-				alph = abc
+				alph = ABC
 			else:
-				alph = zyx
+				alph = ZYX
 
 			text = input("\n Введите шифр:\n> ").upper()
 			key = input("\n Введите ключ:\n> ").upper()
