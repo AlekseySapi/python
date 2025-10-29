@@ -3,21 +3,28 @@ line = '\n########## ########## ##########'
 ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 ZYX = "ZYXWVUTSRQPONMLKJIHGFEDCBA"
 
-def vigenere(text, key, alph):
+def vigenere(text, key, alph, choice_ci):
 	result = []
 	key_index = 0
+	t = ""
 	for char in text:
 		if char in alph:
 			char_index = alph.index(char)
 			key_char = key[key_index % len(key)]
 			key_shift = alph.index(key_char)
-			new_index = (char_index - key_shift) % len(alph)	# Для шифрования, минус заменить на плюс
+			if choice_ci == '1':
+				new_index = (char_index - key_shift) % len(alph)	# Расшифровка
+				t = "\n\n Расшифрованный текст:"
+			else:
+				new_index = (char_index + key_shift) % len(alph)	# Шифрование
+				t = "\n\n Зашифрованный текст:"
 			result.append(alph[new_index])
 			key_index += 1
 		else:
 			result.append(char)
 			continue
-	return ''.join(result)
+	print(t)
+	print(f"> {''.join(result)}")
 
 def clear_key(key):
 	res = []
@@ -33,23 +40,36 @@ def main():
 		while True:
 			print(line)
 
-			print('  1 - Обычный алфавит (ABC..),\n  2 - Перевёрнутый (ZYX..):')
-			choice = ''
+			print('  1 - Расшифровать,\n  2 - Зашифровать:')
+			choice_ci = ''
 			s = ''
-			while choice not in ('1', '2'):
+			while choice_ci not in ('1', '2'):
 				s += '>'
-				choice = input(f'{s} ').strip()
-			if choice == '1':
+				choice_ci = input(f'{s} ').strip()
+
+			print('\n  1 - Обычный алфавит (ABC..),\n  2 - Перевёрнутый (ZYX..):')
+			choice_alph = ''
+			s = ''
+			while choice_alph not in ('1', '2'):
+				s += '>'
+				choice_alph = input(f'{s} ').strip()
+			if choice_alph == '1':
 				alph = ABC
 			else:
 				alph = ZYX
 
-			text = input("\n Введите шифр:\n> ").upper()
-			key = input("\n Введите ключ:\n> ").upper()
-			key = clear_key(key)
+			if choice_ci == '1':
+				text = input("\n Введите шифр:\n> ").upper()
+			else:
+				text = input("\n Введите текст:\n> ").upper()
+			
+			key = ""
+			while key == "":
+				key = input("\n Введите ключ:\n> ").upper()
+				key = clear_key(key)
+				print(f" [key = {key}]")
 
-			print("\n\n Расшифрованный текст:")
-			print(f"> {vigenere(text, key, alph)}")
+			vigenere(text, key, alph, choice_ci)
 			input()
 
 
