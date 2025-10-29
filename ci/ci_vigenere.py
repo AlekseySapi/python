@@ -1,7 +1,10 @@
-line = '\n########## ########## ##########'
+line = '\n############ ############ ############ ############ ############'
 
 ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 ZYX = "ZYXWVUTSRQPONMLKJIHGFEDCBA"
+ABC_RU = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+ZYX_RU = "ЯЮЭЬЫЪЩШЧЦХФУТСРПОНМЛКЙИЗЖЁЕДГВБА"
+
 
 def vigenere(text, key, alph, choice_ci):
 	result = []
@@ -26,17 +29,17 @@ def vigenere(text, key, alph, choice_ci):
 	print(t)
 	print(f"> {''.join(result)}")
 
-def clear_key(key):
+def clear_key(key, alph):
 	res = []
 	for ch in key:
-		if ch in ABC:
+		if ch in alph:
 			res.append(ch)
 	return ''.join(res)
 
 
 def main():
 	while True:
-		print('\n  ===== Шифр Виженера =====')
+		print('\n      ===== Шифр Виженера =====')
 		while True:
 			print(line)
 
@@ -47,16 +50,21 @@ def main():
 				s += '>'
 				choice_ci = input(f'{s} ').strip()
 
-			print('\n  1 - Обычный алфавит (ABC..),\n  2 - Перевёрнутый (ZYX..):')
+			print('\n  1 - Обычный EN алфавит (ABC..),  2 - Перевёрнутый (ZYX..):')
+			print('  3 - Обычный RU алфавит (АБВ..),  4 - Перевёрнутый (ЯЮЭ..):')
 			choice_alph = ''
 			s = ''
-			while choice_alph not in ('1', '2'):
+			while choice_alph not in ('1', '2', '3', '4'):
 				s += '>'
 				choice_alph = input(f'{s} ').strip()
 			if choice_alph == '1':
 				alph = ABC
-			else:
+			elif choice_alph == '2':
 				alph = ZYX
+			elif choice_alph == '3':
+				alph = ABC_RU
+			else:
+				alph = ZYX_RU
 
 			if choice_ci == '1':
 				text = input("\n Введите шифр:\n> ").upper()
@@ -66,7 +74,7 @@ def main():
 			key = ""
 			while key == "":
 				key = input("\n Введите ключ:\n> ").upper()
-				key = clear_key(key)
+				key = clear_key(key, alph)
 				print(f" [key = {key}]")
 
 			vigenere(text, key, alph, choice_ci)
