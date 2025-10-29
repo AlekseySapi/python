@@ -1,6 +1,7 @@
 line = '\n########### ########### ########### ########### ###########'
 
-abc = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ABC = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ZYX = "#ZYXWVUTSRQPONMLKJIHGFEDCBA"
 nums = "0123456789"
 symb = " ,.!?:'\""
 
@@ -11,7 +12,19 @@ def main():
 		print('\n(можно указывать как в виде "1-5-26", так и "010526")')
 		while True:
 			print(line)
-			text = input(" Введите цифровой шифр:\n> ")
+
+			print('  1 - Обычный алфавит (ABC..),\n  2 - Перевёрнутый (ZYX..):')
+			choice = ''
+			s = ''
+			while choice not in ('1', '2'):
+				s += '>'
+				choice = input(f'{s} ').strip()
+			if choice == '1':
+				alph = ABC
+			else:
+				alph = ZYX
+
+			text = input("\n Введите цифровой шифр:\n> ")
 			res = []
 			i = 0
 
@@ -20,28 +33,28 @@ def main():
 					if (text[i] in nums) and (text[i+1] in nums):
 						n = int(text[i])*10 + int(text[i+1])
 						if 1 <= n <= 26:
-							res.append(abc[n])
+							res.append(alph[n])
 							i = i + 1	# Попробовать записи шифра в виде двухразрядных чисел (без разделителей) -> 220126070922
 						else:
-							res.append(abc[0])
+							res.append(alph[0])
 							i = i + 1
 					elif text[i] in nums:
-						res.append(abc[int(text[i])])
+						res.append(alph[int(text[i])])
 					elif text[i] in symb:
 						res.append(text[i])
 					elif text[i] == '-':
 						i = i + 1
 						continue
-					else: res.append(abc[0])
+					else: res.append(alph[0])
 				else:
 					if text[i] in nums:
-						res.append(abc[int(text[i])])
+						res.append(alph[int(text[i])])
 					elif text[i] in symb:
 						res.append(text[i])
 					elif text[i] == '-':
 						i = i + 1
 						continue
-					else: res.append(abc[0])
+					else: res.append(alph[0])
 				i = i + 1
 
 
